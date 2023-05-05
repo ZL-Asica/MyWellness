@@ -14,6 +14,9 @@
 		78E7F61D2A04C75B00C313B7 /* MyWellnessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F61C2A04C75B00C313B7 /* MyWellnessTests.swift */; };
 		78E7F6272A04C75B00C313B7 /* MyWellnessUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6262A04C75B00C313B7 /* MyWellnessUITests.swift */; };
 		78E7F6292A04C75B00C313B7 /* MyWellnessUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6282A04C75B00C313B7 /* MyWellnessUITestsLaunchTests.swift */; };
+		78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6352A04C87E00C313B7 /* HomeView.swift */; };
+		78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6372A04C88E00C313B7 /* SettingsView.swift */; };
+		78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F63B2A04C8AA00C313B7 /* CalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		78E7F6222A04C75B00C313B7 /* MyWellnessUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyWellnessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		78E7F6262A04C75B00C313B7 /* MyWellnessUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWellnessUITests.swift; sourceTree = "<group>"; };
 		78E7F6282A04C75B00C313B7 /* MyWellnessUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWellnessUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		78E7F6352A04C87E00C313B7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		78E7F6372A04C88E00C313B7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		78E7F63B2A04C8AA00C313B7 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,9 @@
 			children = (
 				78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */,
 				78E7F60D2A04C75A00C313B7 /* ContentView.swift */,
+				78E7F63D2A04C91900C313B7 /* Home Page */,
+				78E7F63F2A04C92D00C313B7 /* Calendar Page */,
+				78E7F63E2A04C92400C313B7 /* Settings Page */,
 				78E7F60F2A04C75B00C313B7 /* Assets.xcassets */,
 				78E7F6112A04C75B00C313B7 /* Preview Content */,
 			);
@@ -125,6 +134,30 @@
 				78E7F6282A04C75B00C313B7 /* MyWellnessUITestsLaunchTests.swift */,
 			);
 			path = MyWellnessUITests;
+			sourceTree = "<group>";
+		};
+		78E7F63D2A04C91900C313B7 /* Home Page */ = {
+			isa = PBXGroup;
+			children = (
+				78E7F6352A04C87E00C313B7 /* HomeView.swift */,
+			);
+			path = "Home Page";
+			sourceTree = "<group>";
+		};
+		78E7F63E2A04C92400C313B7 /* Settings Page */ = {
+			isa = PBXGroup;
+			children = (
+				78E7F6372A04C88E00C313B7 /* SettingsView.swift */,
+			);
+			path = "Settings Page";
+			sourceTree = "<group>";
+		};
+		78E7F63F2A04C92D00C313B7 /* Calendar Page */ = {
+			isa = PBXGroup;
+			children = (
+				78E7F63B2A04C8AA00C313B7 /* CalendarView.swift */,
+			);
+			path = "Calendar Page";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +290,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */,
+				78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */,
+				78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */,
 				78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */,
 				78E7F60C2A04C75A00C313B7 /* MyWellnessApp.swift in Sources */,
 			);
