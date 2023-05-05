@@ -35,25 +35,22 @@ struct RecordDietView: View {
                 
                 TextField("Fat (g)", text: $fat)
                     .keyboardType(.numberPad)
-                
-                // create a save button here
-                Button("Save", action: {
-                    // Save the data to Apple Health or Firebase, then dismiss the view
-                    // Save the data to Apple Health or Firebase, then dismiss the view
-                    // TODO: Save the data to Apple Health or Firebase
-                    // Check if the user has entered all the data
-                    if calories.isEmpty || carbs.isEmpty || protein.isEmpty || fat.isEmpty {
-                        // TODO: Show an alert to the user
-                        
-                    }
-                    presentationMode.wrappedValue.dismiss()
-                })
             }
             .navigationBarTitle("Record Diet", displayMode: .inline)
-            .navigationBarItems(trailing: Button("Cancel") {
-                // Dismiss the view
+            .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
-            })
+            }.foregroundColor(.red),
+            trailing: Button("Save") {
+                // Save the data to Apple Health or Firebase, then dismiss the view
+                // Save the data to Apple Health or Firebase, then dismiss the view
+                // TODO: Save the data to Apple Health or Firebase
+                // Check if the user has entered all the data
+                if calories.isEmpty || carbs.isEmpty || protein.isEmpty || fat.isEmpty {
+                    // TODO: Show an alert to the user
+                    
+                }
+                presentationMode.wrappedValue.dismiss()
+            }.foregroundColor(.blue))
         }
     }
 }

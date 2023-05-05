@@ -11,9 +11,20 @@ struct ProgressBarView: View {
     var title: String
     var value: Int
     var maxValue: Int
-    var color: Color
-    var progress: CGFloat {
-        CGFloat(value) / CGFloat(maxValue)
+    var progress: Float
+    var color: Color = .purple
+    // set color based on the value of progress
+    // purple if progress < 1, green otherwise
+    
+    init (title: String, value: Int, maxValue: Int, color: Color = .purple) {
+        self.title = title
+        self.value = value
+        self.maxValue = maxValue
+        self.progress = Float(value) / Float(maxValue)
+        self.color = progress < 1 ? .purple : .green
+        if progress > 1 {
+            self.progress = 1
+        }
     }
     
     var body: some View {
@@ -26,10 +37,12 @@ struct ProgressBarView: View {
                 RoundedRectangle(cornerRadius: 5)
                     .foregroundColor(color.opacity(0.3))
                     .frame(height: 20)
+                    // should be left aligned
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
                             .foregroundColor(color)
-                            .frame(width: geometry.size.width * progress, height: 20)
+                            .frame(width: CGFloat(progress) * geometry.size.width, height: 20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     )
             }
             .frame(height: 20)
@@ -43,6 +56,6 @@ struct ProgressBarView: View {
 
 struct ProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressBarView(title: "Carbs", value: 200, maxValue: 250, color: .red)
+        ProgressBarView(title: "Carbs", value: 200, maxValue: 250, color: .purple)
     }
 }

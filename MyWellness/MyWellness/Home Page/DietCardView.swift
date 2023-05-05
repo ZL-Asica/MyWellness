@@ -15,6 +15,8 @@ struct DietCardView: View {
     @State private var fat = (consumed: 50, total: 70)
     @State private var meals = (breakfast: 600, lunch: 500, dinner: 400)
     @State private var showingRecordDiet = false
+    @State private var showingChangeCalorieGoal = false
+    @State private var showingChangeNutrientGoal = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,8 +25,18 @@ struct DietCardView: View {
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .center)
             
-            ProgressCircleView(consumed: consumedCalories, total: totalCalories)
-                .frame(maxWidth: .infinity, alignment: .center)
+            Button(action: {
+                            showingChangeCalorieGoal.toggle()
+                        }) {
+                            ProgressCircleView(consumed: consumedCalories, total: totalCalories)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .sheet(isPresented: $showingChangeCalorieGoal) {
+                            ChangeCalorieGoalView(currentCalorieGoal: totalCalories) { newGoal in
+                                totalCalories = newGoal
+                            }
+                        }
             
             HStack {
                 ProgressBarView(title: "Carbs", value: carbs.consumed, maxValue: carbs.total, color: .purple).padding(.trailing, 10)
@@ -32,6 +44,21 @@ struct DietCardView: View {
                 ProgressBarView(title: "Fat", value: fat.consumed, maxValue: fat.total, color: .purple)
             }
             .frame(maxWidth: .infinity, alignment: .center)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                showingChangeNutrientGoal.toggle()
+            }
+            .sheet(isPresented: $showingChangeNutrientGoal) {
+                ChangeNutrientGoalView(
+                    currentCarbGoal: carbs.total,
+                    currentProteinGoal: protein.total,
+                    currentFatGoal: fat.total
+                ) { newCarbs, newProtein, newFat in
+                    carbs.total = newCarbs
+                    protein.total = newProtein
+                    fat.total = newFat
+                }
+            }
             
             HStack {
                 MealInfoView(title: "Breakfast", calories: meals.breakfast).padding(.trailing, 10)

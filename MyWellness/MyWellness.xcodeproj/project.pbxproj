@@ -11,6 +11,8 @@
 		788561CE2A04E37500F7F6EB /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561CD2A04E37500F7F6EB /* ProgressBarView.swift */; };
 		788561D02A04E38900F7F6EB /* MealInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561CF2A04E38900F7F6EB /* MealInfoView.swift */; };
 		788561D22A04E39900F7F6EB /* RecordDietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561D12A04E39900F7F6EB /* RecordDietView.swift */; };
+		788561D42A04EFC200F7F6EB /* ChangeCalorieGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561D32A04EFC200F7F6EB /* ChangeCalorieGoalView.swift */; };
+		788561D62A04EFE100F7F6EB /* ChangeNutrientGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561D52A04EFE100F7F6EB /* ChangeNutrientGoalView.swift */; };
 		78E7F60C2A04C75A00C313B7 /* MyWellnessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */; };
 		78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60D2A04C75A00C313B7 /* ContentView.swift */; };
 		78E7F6102A04C75B00C313B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78E7F60F2A04C75B00C313B7 /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 		788561CD2A04E37500F7F6EB /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		788561CF2A04E38900F7F6EB /* MealInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealInfoView.swift; sourceTree = "<group>"; };
 		788561D12A04E39900F7F6EB /* RecordDietView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDietView.swift; sourceTree = "<group>"; };
+		788561D32A04EFC200F7F6EB /* ChangeCalorieGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCalorieGoalView.swift; sourceTree = "<group>"; };
+		788561D52A04EFE100F7F6EB /* ChangeNutrientGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNutrientGoalView.swift; sourceTree = "<group>"; };
 		78E7F6082A04C75A00C313B7 /* MyWellness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWellness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWellnessApp.swift; sourceTree = "<group>"; };
 		78E7F60D2A04C75A00C313B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 			children = (
 				78E7F6352A04C87E00C313B7 /* HomeView.swift */,
 				78E7F6402A04CE8200C313B7 /* DietCardView.swift */,
+				788561D52A04EFE100F7F6EB /* ChangeNutrientGoalView.swift */,
+				788561D32A04EFC200F7F6EB /* ChangeCalorieGoalView.swift */,
 				788561CD2A04E37500F7F6EB /* ProgressBarView.swift */,
 				788561CF2A04E38900F7F6EB /* MealInfoView.swift */,
 				788561D12A04E39900F7F6EB /* RecordDietView.swift */,
@@ -315,7 +321,9 @@
 				788561CC2A04E33E00F7F6EB /* ProgressCircleView.swift in Sources */,
 				78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */,
 				78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */,
+				788561D42A04EFC200F7F6EB /* ChangeCalorieGoalView.swift in Sources */,
 				78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */,
+				788561D62A04EFE100F7F6EB /* ChangeNutrientGoalView.swift in Sources */,
 				788561CE2A04E37500F7F6EB /* ProgressBarView.swift in Sources */,
 				78E7F6452A04CE9E00C313B7 /* SleepCardView.swift in Sources */,
 				788561D02A04E38900F7F6EB /* MealInfoView.swift in Sources */,
