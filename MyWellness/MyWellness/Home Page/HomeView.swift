@@ -11,8 +11,10 @@ struct HomeView: View {
     @State private var userName = "ZL Asica"
     @State private var userBMI = 22.5
     @State private var greeting = ""
+    @State private var icon = Image(systemName: "sunrise.fill")
     
     private func updateGreeting() {
+        // Based on the time of the day, give user a greeting with icon
         let hour = Calendar.current.component(.hour, from: Date())
         if hour >= 5 && hour < 12 {
             greeting = "Good Morning"
@@ -21,7 +23,20 @@ struct HomeView: View {
         } else if hour >= 17 && hour < 23{
             greeting = "Good Evening"
         } else {
-            greeting = "Sweet dreams"
+             greeting = "Sweet dreams"
+        }
+    }
+    
+    private func updateIcon() {
+        let hour = Calendar.current.component(.hour, from: Date())
+        if hour >= 5 && hour < 12 {
+            icon = Image(systemName: "sunrise.fill")
+        } else if hour >= 12 && hour < 17 {
+            icon = Image(systemName: "sun.max.fill")
+        } else if hour >= 17 && hour < 23{
+            icon = Image(systemName: "sunset.fill")
+        } else {
+            icon = Image(systemName: "moon.zzz.fill")
         }
     }
     
@@ -29,10 +44,14 @@ struct HomeView: View {
         VStack {
             VStack(alignment: .leading) {
                 // Give user a greeting based on the time of the day
-                Text("\(greeting),\n \(userName)")
+                Text("\(greeting) \(icon)")
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.bottom)
+                    
+                Text("\(userName)")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 10)
                 
                 // Show user's BMI and the corresponding health status
                 Text("BMI: \(userBMI, specifier: "%.1f") (\(userBMI < 18.5 ? "Underweight" : userBMI < 25 ? "Normal" : userBMI < 30 ? "Overweight" : "Obese"))")
@@ -66,6 +85,7 @@ struct HomeView: View {
             .padding(.bottom)
             .onAppear {
                 updateGreeting()
+                updateIcon()
             }
             
             Spacer()
