@@ -17,6 +17,9 @@
 		78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6352A04C87E00C313B7 /* HomeView.swift */; };
 		78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6372A04C88E00C313B7 /* SettingsView.swift */; };
 		78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F63B2A04C8AA00C313B7 /* CalendarView.swift */; };
+		78E7F6412A04CE8200C313B7 /* DietCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6402A04CE8200C313B7 /* DietCardView.swift */; };
+		78E7F6432A04CE8D00C313B7 /* ExerciseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */; };
+		78E7F6452A04CE9E00C313B7 /* SleepCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6442A04CE9E00C313B7 /* SleepCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,9 @@
 		78E7F6352A04C87E00C313B7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		78E7F6372A04C88E00C313B7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		78E7F63B2A04C8AA00C313B7 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		78E7F6402A04CE8200C313B7 /* DietCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietCardView.swift; sourceTree = "<group>"; };
+		78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCardView.swift; sourceTree = "<group>"; };
+		78E7F6442A04CE9E00C313B7 /* SleepCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +146,9 @@
 			isa = PBXGroup;
 			children = (
 				78E7F6352A04C87E00C313B7 /* HomeView.swift */,
+				78E7F6402A04CE8200C313B7 /* DietCardView.swift */,
+				78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */,
+				78E7F6442A04CE9E00C313B7 /* SleepCardView.swift */,
 			);
 			path = "Home Page";
 			sourceTree = "<group>";
@@ -290,10 +299,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78E7F6412A04CE8200C313B7 /* DietCardView.swift in Sources */,
 				78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */,
 				78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */,
 				78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */,
+				78E7F6452A04CE9E00C313B7 /* SleepCardView.swift in Sources */,
 				78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */,
+				78E7F6432A04CE8D00C313B7 /* ExerciseCardView.swift in Sources */,
 				78E7F60C2A04C75A00C313B7 /* MyWellnessApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

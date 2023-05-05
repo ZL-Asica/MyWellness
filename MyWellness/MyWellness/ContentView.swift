@@ -12,18 +12,19 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selection) {
+            // Home page
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
                 .tag(0)
-            
+            // Calendar page
             CalendarView()
                 .tabItem {
                     Label("Calendar", systemImage: "calendar")
                 }
                 .tag(1)
-            
+            // Settings page
             SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gear")
