@@ -29,7 +29,7 @@ struct DiaryInputView: View {
         10: "Best"
     ]
 
-    // Add your weather and emotion icon
+    // Add your weather icons from SF Symbols
 
     let weatherIcons = ["sun.max", "cloud.sun", "cloud.bolt", "cloud.heavyrain", "cloud.snow", "wind", "hurricane"]
 
@@ -48,7 +48,6 @@ struct DiaryInputView: View {
                         self.weatherToday = icon
                     }) {
                         VStack {
-                            // Replace <WeatherIcon> with your actual weather icon
                             Image(systemName: icon)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
