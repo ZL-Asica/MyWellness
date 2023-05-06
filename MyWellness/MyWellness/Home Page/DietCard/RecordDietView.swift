@@ -36,7 +36,7 @@ struct RecordDietView: View {
                 TextField("Fat (g)", text: $fat)
                     .keyboardType(.numberPad)
             }
-            .navigationBarTitle("Record Diet", displayMode: .inline)
+            .navigationBarTitle("Record Diet")
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }.foregroundColor(.red),

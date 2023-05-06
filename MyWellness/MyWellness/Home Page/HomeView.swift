@@ -41,54 +41,59 @@ struct HomeView: View {
     }
     
     var body: some View {
-        VStack {
-            VStack(alignment: .leading) {
-                // Give user a greeting based on the time of the day
-                Text("\(greeting) \(icon)")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    
-                Text("\(userName)")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 10)
-                
-                // Show user's BMI and the corresponding health status
-                Text("BMI: \(userBMI, specifier: "%.1f") (\(userBMI < 18.5 ? "Underweight" : userBMI < 25 ? "Normal" : userBMI < 30 ? "Overweight" : "Obese"))")
-                    .font(.title2)
-                    .padding(.bottom)
-                
-                // TODO: implement the recommendations by machine learning
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("Recommendations for you:")
-                        .font(.headline)
-
-                    // TODO: Based on the user's BMI, also the user's diet history, recommend the user a diet plan.
-                    Text("Diet: Eat more fruits and vegetables")
-                    // TODO: Based on the user's BMI, also the user's exercise history, recommend the user an exercise plan.
-                    Text("Exercise: Try 30 minutes of cardio every day")
-                    // TODO: Based on the user's BMI, also the user's sleep history, recommend the user a sleep plan.
-                    Text("Sleep: Go to bed before 11 PM")
-                }
-            }
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(Color(.systemGray6))
-            .cornerRadius(12)
-            .padding()
-            
+        ScrollView {
             VStack {
-                DietCardView()
-                ExerciseCardView()
-                SleepCardView()
-            }
-            .padding(.bottom)
-            .onAppear {
-                updateGreeting()
-                updateIcon()
-            }
-            
-            Spacer()
+                VStack(alignment: .leading) {
+                    // Give user a greeting based on the time of the day
+                    Text("\(greeting) \(icon)")
+                        .font(.title)
+                        .fontWeight(.bold)
+                    
+                    Text("\(userName)")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(.bottom, 10)
+                    
+                    // Show user's BMI and the corresponding health status
+                    Text("BMI: \(userBMI, specifier: "%.1f") (\(userBMI < 18.5 ? "Underweight" : userBMI < 25 ? "Normal" : userBMI < 30 ? "Overweight" : "Obese"))")
+                        .font(.title2)
+                        .padding(.bottom)
+                    
+                    // TODO: implement the recommendations by machine learning
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Recommendations for you:")
+                            .font(.headline)
+                        
+                        // TODO: Based on the user's BMI, also the user's diet history, recommend the user a diet plan.
+                        Text("Diet: Eat more fruits and vegetables")
+                        // TODO: Based on the user's BMI, also the user's exercise history, recommend the user an exercise plan.
+                        Text("Exercise: Try 30 minutes of cardio every day")
+                        // TODO: Based on the user's BMI, also the user's sleep history, recommend the user a sleep plan.
+                        Text("Sleep: Go to bed before 11 PM")
+                    }
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+                .padding()
+                
+                VStack {
+                    DietCardView()
+                    ExerciseCardView()
+                    SleepCardView()
+                }
+                .padding(.bottom)
+                .onAppear {
+                    updateGreeting()
+                    updateIcon()
+                }
+                
+                Spacer()
+            }.padding()
+        }
+        .onAppear {
+            updateGreeting()
         }
     }
 }

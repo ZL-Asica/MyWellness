@@ -13,6 +13,10 @@
 		788561D22A04E39900F7F6EB /* RecordDietView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561D12A04E39900F7F6EB /* RecordDietView.swift */; };
 		788561D42A04EFC200F7F6EB /* ChangeCalorieGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561D32A04EFC200F7F6EB /* ChangeCalorieGoalView.swift */; };
 		788561D62A04EFE100F7F6EB /* ChangeNutrientGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561D52A04EFE100F7F6EB /* ChangeNutrientGoalView.swift */; };
+		788561DD2A05C0EF00F7F6EB /* RecordExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561DC2A05C0EF00F7F6EB /* RecordExerciseView.swift */; };
+		788561DF2A05C10000F7F6EB /* ExerciseLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561DE2A05C10000F7F6EB /* ExerciseLogView.swift */; };
+		788561E22A05F3A800F7F6EB /* AdjustSleepTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561E12A05F3A800F7F6EB /* AdjustSleepTimeView.swift */; };
+		788561E42A05F3FD00F7F6EB /* DiaryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561E32A05F3FD00F7F6EB /* DiaryInputView.swift */; };
 		78E7F60C2A04C75A00C313B7 /* MyWellnessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */; };
 		78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60D2A04C75A00C313B7 /* ContentView.swift */; };
 		78E7F6102A04C75B00C313B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78E7F60F2A04C75B00C313B7 /* Assets.xcassets */; };
@@ -52,6 +56,10 @@
 		788561D12A04E39900F7F6EB /* RecordDietView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDietView.swift; sourceTree = "<group>"; };
 		788561D32A04EFC200F7F6EB /* ChangeCalorieGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeCalorieGoalView.swift; sourceTree = "<group>"; };
 		788561D52A04EFE100F7F6EB /* ChangeNutrientGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNutrientGoalView.swift; sourceTree = "<group>"; };
+		788561DC2A05C0EF00F7F6EB /* RecordExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordExerciseView.swift; sourceTree = "<group>"; };
+		788561DE2A05C10000F7F6EB /* ExerciseLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLogView.swift; sourceTree = "<group>"; };
+		788561E12A05F3A800F7F6EB /* AdjustSleepTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustSleepTimeView.swift; sourceTree = "<group>"; };
+		788561E32A05F3FD00F7F6EB /* DiaryInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInputView.swift; sourceTree = "<group>"; };
 		78E7F6082A04C75A00C313B7 /* MyWellness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWellness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWellnessApp.swift; sourceTree = "<group>"; };
 		78E7F60D2A04C75A00C313B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,7 +74,7 @@
 		78E7F6372A04C88E00C313B7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		78E7F63B2A04C8AA00C313B7 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		78E7F6402A04CE8200C313B7 /* DietCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietCardView.swift; sourceTree = "<group>"; };
-		78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCardView.swift; sourceTree = "<group>"; };
+		78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExerciseCardView.swift; path = "MyWellness/Home Page/Exercise/ExerciseCardView.swift"; sourceTree = SOURCE_ROOT; };
 		78E7F6442A04CE9E00C313B7 /* SleepCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +103,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		788561D92A05C01700F7F6EB /* DietCard */ = {
+			isa = PBXGroup;
+			children = (
+				78E7F6402A04CE8200C313B7 /* DietCardView.swift */,
+				788561CD2A04E37500F7F6EB /* ProgressBarView.swift */,
+				788561D52A04EFE100F7F6EB /* ChangeNutrientGoalView.swift */,
+				788561CF2A04E38900F7F6EB /* MealInfoView.swift */,
+				788561D12A04E39900F7F6EB /* RecordDietView.swift */,
+			);
+			path = DietCard;
+			sourceTree = "<group>";
+		};
+		788561DB2A05C06800F7F6EB /* Exercise */ = {
+			isa = PBXGroup;
+			children = (
+				78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */,
+				788561DE2A05C10000F7F6EB /* ExerciseLogView.swift */,
+				788561DC2A05C0EF00F7F6EB /* RecordExerciseView.swift */,
+			);
+			path = Exercise;
+			sourceTree = "<group>";
+		};
+		788561E02A05F38200F7F6EB /* Sleep */ = {
+			isa = PBXGroup;
+			children = (
+				78E7F6442A04CE9E00C313B7 /* SleepCardView.swift */,
+				788561E12A05F3A800F7F6EB /* AdjustSleepTimeView.swift */,
+				788561E32A05F3FD00F7F6EB /* DiaryInputView.swift */,
+			);
+			path = Sleep;
+			sourceTree = "<group>";
+		};
 		78E7F5FF2A04C75A00C313B7 = {
 			isa = PBXGroup;
 			children = (
@@ -158,15 +198,11 @@
 			isa = PBXGroup;
 			children = (
 				78E7F6352A04C87E00C313B7 /* HomeView.swift */,
-				78E7F6402A04CE8200C313B7 /* DietCardView.swift */,
-				788561D52A04EFE100F7F6EB /* ChangeNutrientGoalView.swift */,
-				788561D32A04EFC200F7F6EB /* ChangeCalorieGoalView.swift */,
-				788561CD2A04E37500F7F6EB /* ProgressBarView.swift */,
-				788561CF2A04E38900F7F6EB /* MealInfoView.swift */,
-				788561D12A04E39900F7F6EB /* RecordDietView.swift */,
 				788561CB2A04E33E00F7F6EB /* ProgressCircleView.swift */,
-				78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */,
-				78E7F6442A04CE9E00C313B7 /* SleepCardView.swift */,
+				788561D32A04EFC200F7F6EB /* ChangeCalorieGoalView.swift */,
+				788561D92A05C01700F7F6EB /* DietCard */,
+				788561DB2A05C06800F7F6EB /* Exercise */,
+				788561E02A05F38200F7F6EB /* Sleep */,
 			);
 			path = "Home Page";
 			sourceTree = "<group>";
@@ -322,13 +358,17 @@
 				78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */,
 				78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */,
 				788561D42A04EFC200F7F6EB /* ChangeCalorieGoalView.swift in Sources */,
+				788561DF2A05C10000F7F6EB /* ExerciseLogView.swift in Sources */,
 				78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */,
+				788561E22A05F3A800F7F6EB /* AdjustSleepTimeView.swift in Sources */,
 				788561D62A04EFE100F7F6EB /* ChangeNutrientGoalView.swift in Sources */,
 				788561CE2A04E37500F7F6EB /* ProgressBarView.swift in Sources */,
 				78E7F6452A04CE9E00C313B7 /* SleepCardView.swift in Sources */,
+				788561DD2A05C0EF00F7F6EB /* RecordExerciseView.swift in Sources */,
 				788561D02A04E38900F7F6EB /* MealInfoView.swift in Sources */,
 				788561D22A04E39900F7F6EB /* RecordDietView.swift in Sources */,
 				78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */,
+				788561E42A05F3FD00F7F6EB /* DiaryInputView.swift in Sources */,
 				78E7F6432A04CE8D00C313B7 /* ExerciseCardView.swift in Sources */,
 				78E7F60C2A04C75A00C313B7 /* MyWellnessApp.swift in Sources */,
 			);

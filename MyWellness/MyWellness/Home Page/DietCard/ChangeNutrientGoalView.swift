@@ -63,7 +63,7 @@ struct ChangeNutrientGoalView: View {
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
             }
-            .navigationBarTitle("Change Nutrients Goal", displayMode: .inline)
+            .navigationBarTitle("Change Nutrients Goal")
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }.foregroundColor(.red),

@@ -29,6 +29,7 @@ struct ChangeCalorieGoalView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding()
+            .frame(alignment: .top)
             .navigationBarTitle("Change Calories Goal")
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
