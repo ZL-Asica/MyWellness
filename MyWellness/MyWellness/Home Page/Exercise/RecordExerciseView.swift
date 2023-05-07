@@ -21,9 +21,9 @@ struct RecordExerciseView: View {
                 Section {
                     TextField("Exercise Type", text: $exerciseType)
                     DatePicker("Start Time", selection: $startTime, displayedComponents: [.hourAndMinute])
-                    TextField("Duration - minutes", value: $duration, formatter: NumberFormatter())
-                    TextField("Calories - kcal", value: $caloriesBurned, formatter: NumberFormatter())
-                    TextField("Total Miles - Miles (optional)", value: $totalMiles, formatter: NumberFormatter())
+                    TextField("Duration - minutes", value: $duration, formatter: NumberFormatter()).keyboardType(.numberPad)
+                    TextField("Calories - kcal", value: $caloriesBurned, formatter: NumberFormatter()).keyboardType(.numberPad)
+                    TextField("Total Miles - Miles (optional)", value: $totalMiles, formatter: NumberFormatter()).keyboardType(.numberPad)
                 }
             }
             .navigationTitle("Record Exercise")

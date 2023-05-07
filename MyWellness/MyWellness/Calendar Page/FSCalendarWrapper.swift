@@ -21,8 +21,31 @@ struct FSCalendarWrapper: UIViewRepresentable {
         calendar.allowsMultipleSelection = false
         calendar.appearance.headerDateFormat = "MMMM yyyy"
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
-        calendar.appearance.weekdayTextColor = .black
         calendar.scrollDirection = .horizontal
+
+        // Appearance settings for both light and dark modes
+        if #available(iOS 13.0, *) {
+            calendar.appearance.weekdayTextColor = .label
+            calendar.appearance.titleDefaultColor = .label
+            calendar.appearance.titlePlaceholderColor = .tertiaryLabel
+            calendar.appearance.titleSelectionColor = .label
+            calendar.appearance.todayColor = .systemBlue
+            calendar.appearance.selectionColor = .systemOrange // Change the selection color
+            calendar.appearance.borderDefaultColor = .clear
+            calendar.appearance.borderSelectionColor = .clear
+            calendar.appearance.headerTitleColor = .label
+        } else {
+            calendar.appearance.weekdayTextColor = .black
+            calendar.appearance.titleDefaultColor = .black
+            calendar.appearance.titlePlaceholderColor = .lightGray
+            calendar.appearance.titleSelectionColor = .black
+            calendar.appearance.todayColor = .systemBlue
+            calendar.appearance.selectionColor = .systemOrange // Change the selection color
+            calendar.appearance.borderDefaultColor = .clear
+            calendar.appearance.borderSelectionColor = .clear
+            calendar.appearance.headerTitleColor = .black
+        }
+
         return calendar
     }
     
@@ -40,5 +63,11 @@ struct FSCalendarWrapper: UIViewRepresentable {
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
             parent.selectedDate = date
         }
+    }
+}
+
+struct FSCalendarWrapper_Previews: PreviewProvider {
+    static var previews: some View {
+        FSCalendarWrapper(selectedDate: .constant(Date()))
     }
 }

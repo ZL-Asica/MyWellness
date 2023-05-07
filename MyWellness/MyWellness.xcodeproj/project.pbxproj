@@ -19,6 +19,11 @@
 		788561E42A05F3FD00F7F6EB /* DiaryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561E32A05F3FD00F7F6EB /* DiaryInputView.swift */; };
 		788561EA2A06265900F7F6EB /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 788561E92A06265900F7F6EB /* FSCalendar */; };
 		788561EC2A06267C00F7F6EB /* FSCalendarWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561EB2A06267C00F7F6EB /* FSCalendarWrapper.swift */; };
+		7895139E2A076DBF0051CC59 /* UserDataCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7895139D2A076DBF0051CC59 /* UserDataCard.swift */; };
+		789513A02A076DEA0051CC59 /* BMIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7895139F2A076DEA0051CC59 /* BMIView.swift */; };
+		789513A22A076E0F0051CC59 /* WeightGoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A12A076E0F0051CC59 /* WeightGoalProgressView.swift */; };
+		789513A42A076E340051CC59 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A32A076E340051CC59 /* SettingsRow.swift */; };
+		789513A62A076E590051CC59 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A52A076E590051CC59 /* PrivacyPolicyView.swift */; };
 		78E7F60C2A04C75A00C313B7 /* MyWellnessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */; };
 		78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60D2A04C75A00C313B7 /* ContentView.swift */; };
 		78E7F6102A04C75B00C313B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78E7F60F2A04C75B00C313B7 /* Assets.xcassets */; };
@@ -63,6 +68,11 @@
 		788561E12A05F3A800F7F6EB /* AdjustSleepTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjustSleepTimeView.swift; sourceTree = "<group>"; };
 		788561E32A05F3FD00F7F6EB /* DiaryInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInputView.swift; sourceTree = "<group>"; };
 		788561EB2A06267C00F7F6EB /* FSCalendarWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCalendarWrapper.swift; path = "MyWellness/Calendar Page/FSCalendarWrapper.swift"; sourceTree = SOURCE_ROOT; };
+		7895139D2A076DBF0051CC59 /* UserDataCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataCard.swift; sourceTree = "<group>"; };
+		7895139F2A076DEA0051CC59 /* BMIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMIView.swift; sourceTree = "<group>"; };
+		789513A12A076E0F0051CC59 /* WeightGoalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightGoalProgressView.swift; sourceTree = "<group>"; };
+		789513A32A076E340051CC59 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
+		789513A52A076E590051CC59 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		78E7F6082A04C75A00C313B7 /* MyWellness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWellness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWellnessApp.swift; sourceTree = "<group>"; };
 		78E7F60D2A04C75A00C313B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -215,6 +225,11 @@
 			isa = PBXGroup;
 			children = (
 				78E7F6372A04C88E00C313B7 /* SettingsView.swift */,
+				7895139D2A076DBF0051CC59 /* UserDataCard.swift */,
+				7895139F2A076DEA0051CC59 /* BMIView.swift */,
+				789513A12A076E0F0051CC59 /* WeightGoalProgressView.swift */,
+				789513A32A076E340051CC59 /* SettingsRow.swift */,
+				789513A52A076E590051CC59 /* PrivacyPolicyView.swift */,
 			);
 			path = "Settings Page";
 			sourceTree = "<group>";
@@ -367,15 +382,20 @@
 				78E7F6412A04CE8200C313B7 /* DietCardView.swift in Sources */,
 				788561CC2A04E33E00F7F6EB /* ProgressCircleView.swift in Sources */,
 				78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */,
+				789513A62A076E590051CC59 /* PrivacyPolicyView.swift in Sources */,
+				789513A42A076E340051CC59 /* SettingsRow.swift in Sources */,
+				789513A02A076DEA0051CC59 /* BMIView.swift in Sources */,
 				78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */,
 				788561D42A04EFC200F7F6EB /* ChangeCalorieGoalView.swift in Sources */,
 				788561DF2A05C10000F7F6EB /* ExerciseLogView.swift in Sources */,
 				78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */,
 				788561E22A05F3A800F7F6EB /* AdjustSleepTimeView.swift in Sources */,
+				7895139E2A076DBF0051CC59 /* UserDataCard.swift in Sources */,
 				788561D62A04EFE100F7F6EB /* ChangeNutrientGoalView.swift in Sources */,
 				788561CE2A04E37500F7F6EB /* ProgressBarView.swift in Sources */,
 				78E7F6452A04CE9E00C313B7 /* SleepCardView.swift in Sources */,
 				788561DD2A05C0EF00F7F6EB /* RecordExerciseView.swift in Sources */,
+				789513A22A076E0F0051CC59 /* WeightGoalProgressView.swift in Sources */,
 				788561D02A04E38900F7F6EB /* MealInfoView.swift in Sources */,
 				788561D22A04E39900F7F6EB /* RecordDietView.swift in Sources */,
 				78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */,

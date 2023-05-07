@@ -53,7 +53,7 @@ struct DiaryInputView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 40, height: 40, alignment: .center)
                                 .foregroundColor(weatherToday == icon ? .blue : .gray)
-                        }.frame(width: .infinity, alignment: .center)
+                        }
                     }
                 }
             }
@@ -75,10 +75,11 @@ struct DiaryInputView: View {
                 .font(.caption)
                 .padding(.bottom, 10)
 
+            // Below here is the diary content box for the user to type in
             Text("Diary Content")
                 .font(.subheadline)
                 .padding(.top, 20)
-
+            
             TextEditor(text: $diaryContentToday)
                 .frame(height: 150)
                 .padding()
