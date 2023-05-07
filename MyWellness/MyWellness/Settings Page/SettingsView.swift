@@ -67,19 +67,23 @@ struct SettingsView: View {
                         Image(systemName: "person")
                     }
                 }
-                
-                HStack {
-                    UserDataCard(title: "Height", value: "\(height) ft", imageName: "ruler")
-                    UserDataCard(title: "Weight", value: "\(weight) lbs", imageName: "scalemass")
+                VStack {
+                    HStack {
+                        UserDataCard(title: "Height", value: "\(height) ft", imageName: "ruler")
+                        UserDataCard(title: "Weight", value: "\(weight) lbs", imageName: "scalemass")
+                    }
+                    
+                    HStack {
+                        UserDataCard(title: "Age", value: "\(age)", imageName: "calendar")
+                        UserDataCard(title: "BMR", value: "\(BMR) kcal", imageName: "flame")
+                    }
                 }
                 
-                HStack {
-                    UserDataCard(title: "Age", value: "\(age)", imageName: "calendar")
-                    UserDataCard(title: "BMR", value: "\(BMR) kcal", imageName: "flame")
+                VStack{
+                    BMIView()
+                    WeightGoalProgressView()
                 }
-                
-                BMIView().padding(.top)
-                WeightGoalProgressView().padding(.bottom)
+                .padding(.vertical)
                 
                 Button(action: {
                     showAccountSettings.toggle()
@@ -130,17 +134,17 @@ struct SettingsView: View {
                     Text("About Us")
                 }
                 
-//                Button(action: {
-//                    // Implement sign out functionality here
-//                }) {
-//                    Text("Sign Out")
-//                        .font(.headline)
-//                        .foregroundColor(.red)
-//                        .frame(width: 200, height: 40)
-//                        .background(Color.white)
-//                        .cornerRadius(10)
-//                }
-//                .padding(.top, 20)
+                Button(action: {
+                    // Implement sign out functionality here
+                }) {
+                    Text("Sign Out")
+                        .font(.headline)
+                        .foregroundColor(.red)
+                        .frame(width: 200, height: 40)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                }
+                .padding(.top, 20)
             }
             .padding()
         }
