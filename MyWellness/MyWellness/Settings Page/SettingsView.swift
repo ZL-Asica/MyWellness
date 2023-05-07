@@ -55,10 +55,7 @@ struct SettingsView: View {
                     }
                 } else {
                     // Get user's profile picture from Gravatar
-                    
-
-                    Image(systemName: "person.circle")
-                        .resizable()
+                    CircularImageView(gravatarURL: generateGravatarURL(userEmail: userEmail))
                         .frame(width: 100, height: 100)
                     
                     Text("\(userName)")
