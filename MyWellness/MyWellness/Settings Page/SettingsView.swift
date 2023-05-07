@@ -42,6 +42,7 @@ struct SettingsView: View {
 //        self.weightGoalProgress = (weight - weightGoal) / (weightStart - weightGoal)
         ScrollView {
             VStack {
+                // User's personal information here
                 if showLogin {
                     Button(action: {
                         // Implement login functionality here
@@ -52,6 +53,7 @@ struct SettingsView: View {
                             .frame(width: 200, height: 40)
                             .background(Color.blue)
                             .cornerRadius(10)
+                            .padding(.vertical, 20)
                     }
                 } else {
                     // Get user's profile picture from Gravatar
@@ -67,6 +69,8 @@ struct SettingsView: View {
                         Image(systemName: "person")
                     }
                 }
+
+                // User's basic information data
                 VStack {
                     HStack {
                         UserDataCard(title: "Height", value: "\(height) ft", imageName: "ruler")
@@ -79,59 +83,63 @@ struct SettingsView: View {
                     }
                 }
                 
-                VStack{
+                // BMI and Weight Goal Progress
+                VStack {
                     BMIView()
                     WeightGoalProgressView()
                 }
                 .padding(.vertical)
                 
-                Button(action: {
-                    showAccountSettings.toggle()
-                }) {
-                    SettingsRow(title: "Account Settings")
-                }
-                .sheet(isPresented: $showAccountSettings) {
-                    // Replace with Account Settings View
-                    Text("Account Settings")
-                }
-                
-                Button(action: {
-                    showNotificationSettings.toggle()
-                }) {
-                    SettingsRow(title: "Notification Settings")
-                }
-                .sheet(isPresented: $showNotificationSettings) {
-                    // Replace with Notification Settings View
-                    Text("Notification Settings")
-                }
-                
-                Button(action: {
-                    showDataSettings.toggle()
-                }) {
-                    SettingsRow(title: "Data Settings")
-                }
-                .sheet(isPresented: $showDataSettings) {
-                    // Replace with Data Settings View
-                    Text("Data Settings")
-                }
-                
-                Button(action: {
-                    showPrivacyPolicy.toggle()
-                }) {
-                    SettingsRow(title: "Privacy Policy")
-                }
-                .sheet(isPresented: $showPrivacyPolicy) {
-                    PrivacyPolicyView()
-                }
-                
-                Button(action: {
-                    showAboutUs.toggle()
-                }) {
-                    SettingsRow(title: "About Us")
-                }
-                .sheet(isPresented: $showAboutUs) {
-                    // Replace with About Us View
-                    Text("About Us")
+                // Settings
+                VStack {
+                    Button(action: {
+                        showAccountSettings.toggle()
+                    }) {
+                        SettingsRow(title: "Account Settings")
+                    }
+                    .sheet(isPresented: $showAccountSettings) {
+                        // Replace with Account Settings View
+                        Text("Account Settings")
+                    }
+                    
+                    Button(action: {
+                        showNotificationSettings.toggle()
+                    }) {
+                        SettingsRow(title: "Notification Settings")
+                    }
+                    .sheet(isPresented: $showNotificationSettings) {
+                        // Replace with Notification Settings View
+                        Text("Notification Settings")
+                    }
+                    
+                    Button(action: {
+                        showDataSettings.toggle()
+                    }) {
+                        SettingsRow(title: "Data Settings")
+                    }
+                    .sheet(isPresented: $showDataSettings) {
+                        // Replace with Data Settings View
+                        Text("Data Settings")
+                    }
+                    
+                    Button(action: {
+                        showPrivacyPolicy.toggle()
+                    }) {
+                        SettingsRow(title: "Privacy Policy")
+                    }
+                    .sheet(isPresented: $showPrivacyPolicy) {
+                        PrivacyPolicyView()
+                    }
+                    
+                    Button(action: {
+                        showAboutUs.toggle()
+                    }) {
+                        SettingsRow(title: "About Us")
+                    }
+                    .sheet(isPresented: $showAboutUs) {
+                        // Replace with About Us View
+                        Text("About Us")
+                    }
                 }
                 
                 Button(action: {
