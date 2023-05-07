@@ -25,6 +25,7 @@
 		789513A42A076E340051CC59 /* SettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A32A076E340051CC59 /* SettingsRow.swift */; };
 		789513A62A076E590051CC59 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A52A076E590051CC59 /* PrivacyPolicyView.swift */; };
 		789513A82A0819FF0051CC59 /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A72A0819FF0051CC59 /* CircularImageView.swift */; };
+		789513AA2A082CC50051CC59 /* GravatarProfileFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A92A082CC50051CC59 /* GravatarProfileFetcher.swift */; };
 		78E7F60C2A04C75A00C313B7 /* MyWellnessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */; };
 		78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60D2A04C75A00C313B7 /* ContentView.swift */; };
 		78E7F6102A04C75B00C313B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78E7F60F2A04C75B00C313B7 /* Assets.xcassets */; };
@@ -75,6 +76,7 @@
 		789513A32A076E340051CC59 /* SettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRow.swift; sourceTree = "<group>"; };
 		789513A52A076E590051CC59 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		789513A72A0819FF0051CC59 /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
+		789513A92A082CC50051CC59 /* GravatarProfileFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravatarProfileFetcher.swift; sourceTree = "<group>"; };
 		78E7F6082A04C75A00C313B7 /* MyWellness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWellness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWellnessApp.swift; sourceTree = "<group>"; };
 		78E7F60D2A04C75A00C313B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			children = (
 				78E7F6372A04C88E00C313B7 /* SettingsView.swift */,
 				789513A72A0819FF0051CC59 /* CircularImageView.swift */,
+				789513A92A082CC50051CC59 /* GravatarProfileFetcher.swift */,
 				7895139D2A076DBF0051CC59 /* UserDataCard.swift */,
 				7895139F2A076DEA0051CC59 /* BMIView.swift */,
 				789513A12A076E0F0051CC59 /* WeightGoalProgressView.swift */,
@@ -389,6 +392,7 @@
 				789513A42A076E340051CC59 /* SettingsRow.swift in Sources */,
 				789513A02A076DEA0051CC59 /* BMIView.swift in Sources */,
 				78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */,
+				789513AA2A082CC50051CC59 /* GravatarProfileFetcher.swift in Sources */,
 				788561D42A04EFC200F7F6EB /* ChangeCalorieGoalView.swift in Sources */,
 				788561DF2A05C10000F7F6EB /* ExerciseLogView.swift in Sources */,
 				78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */,

@@ -19,8 +19,8 @@ struct SettingsView: View {
     // Replace with your user's data
     // user's name, gender, height, weight, age, BMR, BMI, weight goal progress
     // user's profile picture
-    @State private var userName = "ZL Asica"
     @State private var userEmail = "zl-asica@outlook.com"
+    @StateObject private var gravatarProfileFetcher = GravatarProfileFetcher()
     @State private var gender = "male"
     @State private var height: Int = 68
     @State private var weight: Int = 150
@@ -60,8 +60,11 @@ struct SettingsView: View {
                     CircularImageView(gravatarURL: generateGravatarURL(userEmail: userEmail))
                         .frame(width: 100, height: 100)
                     
-                    Text("\(userName)")
+                    Text("\(gravatarProfileFetcher.userName)")
                         .font(.title2)
+                        .onAppear {
+                            gravatarProfileFetcher.fetchProfileInfo(userEmail: userEmail)
+                        }
                     
                     HStack {
                         // Based on user's gender, show SFsymbol
