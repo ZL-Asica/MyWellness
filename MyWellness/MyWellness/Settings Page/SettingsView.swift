@@ -7,19 +7,28 @@
 
 import SwiftUI
 
+@MainActor
+final class SettingsViewModel: ObservableObject {
+    func signOut() throws {
+        try AuthenticationManager.shared.signOut()
+    }
+}
+
 struct SettingsView: View {
-    @State private var showLogin = false
+    @StateObject private var viewModel = SettingsViewModel()
+    
     @State private var showEditUserData = false
     @State private var showAccountSettings = false
     @State private var showNotificationSettings = false
     @State private var showDataSettings = false
     @State private var showPrivacyPolicy = false
     @State private var showAboutUs = false
+    @State private var showLoginView = false
     
     // Replace with your user's data
     // user's name, gender, height, weight, age, BMR, BMI, weight goal progress
     // user's profile picture
-    @State private var userEmail = "zl-asica@outlook.com"
+    @State private var userEmail: String = ""
     @StateObject private var gravatarProfileFetcher = GravatarProfileFetcher()
     @State private var gender = "male"
     @State private var height: Int = 68
@@ -43,10 +52,10 @@ struct SettingsView: View {
         ScrollView {
             VStack {
                 // User's personal information here
-                if showLogin {
+                if userEmail == "" {
                     Button(action: {
-                        // Implement login functionality here
-                    }) {
+                        showLoginView.toggle()
+                    }){
                         Text("Login")
                             .font(.title)
                             .foregroundColor(.white)
@@ -55,17 +64,21 @@ struct SettingsView: View {
                             .cornerRadius(10)
                             .padding(.vertical, 20)
                     }
+                    .sheet(isPresented: $showLoginView) {
+                        LoginView()
+                    }
+                    
                 } else {
                     // Get user's profile picture from Gravatar
                     CircularImageView(gravatarURL: generateGravatarURL(userEmail: userEmail))
                         .frame(width: 100, height: 100)
-                    
+
                     Text("\(gravatarProfileFetcher.userName)")
                         .font(.title2)
                         .onAppear {
                             gravatarProfileFetcher.fetchProfileInfo(userEmail: userEmail)
                         }
-                    
+
                     HStack {
                         // Based on user's gender, show SFsymbol
                         Text("\(gender)")
@@ -145,21 +158,42 @@ struct SettingsView: View {
                     }
                 }
                 
-                Button(action: {
-                    // Implement sign out functionality here
-                }) {
-                    Text("Sign Out")
-                        .font(.headline)
-                        .foregroundColor(.red)
-                        .frame(width: 200, height: 40)
-                        .background(Color.white)
-                        .cornerRadius(10)
+                Button("Sign Out"){
+                    Task {
+                        do {
+                            try viewModel.signOut()
+                            userEmail = ""
+                        } catch {
+                            print(error)
+                        }
+                    }
                 }
+                .font(.headline)
+                .foregroundColor(.red)
+                .frame(width: 200, height: 40)
+                .background(Color.white)
+                .cornerRadius(10)
                 .padding(.top, 20)
             }
             .padding()
         }
         .navigationBarTitle("Settings")
+        .onAppear{
+            if userEmail == "" {
+                fetchUserEmail()
+                print(userEmail)
+            }
+        }
+    }
+    
+    func fetchUserEmail() {
+        do {
+            let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+            userEmail = authUser.email ?? ""
+        } catch {
+            // handle error
+            print(error)
+        }
     }
 }
 
