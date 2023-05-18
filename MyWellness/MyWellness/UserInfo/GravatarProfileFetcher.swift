@@ -10,7 +10,7 @@ import Combine
 import CryptoKit
 
 class GravatarProfileFetcher: ObservableObject {
-    @Published var userName: String = "USER"
+    @Published var userName: String = ""
     
     func fetchProfileInfo(userEmail: String) {
         let email = userEmail.lowercased()

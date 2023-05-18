@@ -10,7 +10,9 @@
 		780A4FAB2A0F231E00337B38 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 780A4FAA2A0F231E00337B38 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		780A4FAD2A0F231E00337B38 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 780A4FAC2A0F231E00337B38 /* FirebaseAuth */; };
 		780A4FB72A0F299E00337B38 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780A4FB62A0F299E00337B38 /* AuthenticationManager.swift */; };
-		780A4FB92A0F33F800337B38 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 780A4FB82A0F33F800337B38 /* GoogleService-Info.plist */; };
+		780A4FBB2A0F665A00337B38 /* AccountSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780A4FBA2A0F665A00337B38 /* AccountSettingsView.swift */; };
+		780A4FBE2A104E8300337B38 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 780A4FBD2A104E8300337B38 /* FirebaseFirestore */; };
+		780A4FC02A104E8A00337B38 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 780A4FBF2A104E8A00337B38 /* FirebaseFirestoreSwift */; };
 		788561CC2A04E33E00F7F6EB /* ProgressCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561CB2A04E33E00F7F6EB /* ProgressCircleView.swift */; };
 		788561CE2A04E37500F7F6EB /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561CD2A04E37500F7F6EB /* ProgressBarView.swift */; };
 		788561D02A04E38900F7F6EB /* MealInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 788561CF2A04E38900F7F6EB /* MealInfoView.swift */; };
@@ -31,6 +33,8 @@
 		789513A82A0819FF0051CC59 /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A72A0819FF0051CC59 /* CircularImageView.swift */; };
 		789513AA2A082CC50051CC59 /* GravatarProfileFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513A92A082CC50051CC59 /* GravatarProfileFetcher.swift */; };
 		789513AC2A0837FC0051CC59 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789513AB2A0837FC0051CC59 /* LoginView.swift */; };
+		78A53DE12A1283CB0020E8B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 78A53DE02A1283CB0020E8B5 /* GoogleService-Info.plist */; };
+		78A53DE32A1286FA0020E8B5 /* FireStoreDataAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A53DE22A1286FA0020E8B5 /* FireStoreDataAccess.swift */; };
 		78E7F60C2A04C75A00C313B7 /* MyWellnessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */; };
 		78E7F60E2A04C75A00C313B7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F60D2A04C75A00C313B7 /* ContentView.swift */; };
 		78E7F6102A04C75B00C313B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78E7F60F2A04C75B00C313B7 /* Assets.xcassets */; };
@@ -44,6 +48,12 @@
 		78E7F6412A04CE8200C313B7 /* DietCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6402A04CE8200C313B7 /* DietCardView.swift */; };
 		78E7F6432A04CE8D00C313B7 /* ExerciseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */; };
 		78E7F6452A04CE9E00C313B7 /* SleepCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E7F6442A04CE9E00C313B7 /* SleepCardView.swift */; };
+		78FCE9902A153E5A001B21AF /* SignInWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE98F2A153E5A001B21AF /* SignInWithEmailViewModel.swift */; };
+		78FCE9932A154ACB001B21AF /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9922A154ACB001B21AF /* UserManager.swift */; };
+		78FCE9952A16AA97001B21AF /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9942A16AA97001B21AF /* SignUpView.swift */; };
+		78FCE9982A16AB3B001B21AF /* SignUpWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9972A16AB3B001B21AF /* SignUpWithEmailViewModel.swift */; };
+		78FCE99A2A16D7F8001B21AF /* UserProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9992A16D7F8001B21AF /* UserProfileSettingsViewModel.swift */; };
+		78FE11702A153AB600659DF3 /* UserProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FE116F2A153AB600659DF3 /* UserProfileSettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +75,7 @@
 
 /* Begin PBXFileReference section */
 		780A4FB62A0F299E00337B38 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
-		780A4FB82A0F33F800337B38 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		780A4FBA2A0F665A00337B38 /* AccountSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsView.swift; sourceTree = "<group>"; };
 		788561CB2A04E33E00F7F6EB /* ProgressCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCircleView.swift; sourceTree = "<group>"; };
 		788561CD2A04E37500F7F6EB /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		788561CF2A04E38900F7F6EB /* MealInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealInfoView.swift; sourceTree = "<group>"; };
@@ -85,6 +95,8 @@
 		789513A72A0819FF0051CC59 /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
 		789513A92A082CC50051CC59 /* GravatarProfileFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravatarProfileFetcher.swift; sourceTree = "<group>"; };
 		789513AB2A0837FC0051CC59 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		78A53DE02A1283CB0020E8B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		78A53DE22A1286FA0020E8B5 /* FireStoreDataAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreDataAccess.swift; sourceTree = "<group>"; };
 		78E7F6082A04C75A00C313B7 /* MyWellness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWellness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78E7F60B2A04C75A00C313B7 /* MyWellnessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWellnessApp.swift; sourceTree = "<group>"; };
 		78E7F60D2A04C75A00C313B7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +113,12 @@
 		78E7F6402A04CE8200C313B7 /* DietCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietCardView.swift; sourceTree = "<group>"; };
 		78E7F6422A04CE8D00C313B7 /* ExerciseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExerciseCardView.swift; path = "MyWellness/Home Page/Exercise/ExerciseCardView.swift"; sourceTree = SOURCE_ROOT; };
 		78E7F6442A04CE9E00C313B7 /* SleepCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepCardView.swift; sourceTree = "<group>"; };
+		78FCE98F2A153E5A001B21AF /* SignInWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithEmailViewModel.swift; sourceTree = "<group>"; };
+		78FCE9922A154ACB001B21AF /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		78FCE9942A16AA97001B21AF /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		78FCE9972A16AB3B001B21AF /* SignUpWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailViewModel.swift; sourceTree = "<group>"; };
+		78FCE9992A16D7F8001B21AF /* UserProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsViewModel.swift; sourceTree = "<group>"; };
+		78FE116F2A153AB600659DF3 /* UserProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +126,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				780A4FC02A104E8A00337B38 /* FirebaseFirestoreSwift in Frameworks */,
 				788561EA2A06265900F7F6EB /* FSCalendar in Frameworks */,
+				780A4FBE2A104E8300337B38 /* FirebaseFirestore in Frameworks */,
 				780A4FAD2A0F231E00337B38 /* FirebaseAuth in Frameworks */,
 				780A4FAB2A0F231E00337B38 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
@@ -131,6 +151,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		780A4FBC2A104E8300337B38 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		788561D92A05C01700F7F6EB /* DietCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +197,7 @@
 				78E7F61B2A04C75B00C313B7 /* MyWellnessTests */,
 				78E7F6252A04C75B00C313B7 /* MyWellnessUITests */,
 				78E7F6092A04C75A00C313B7 /* Products */,
+				780A4FBC2A104E8300337B38 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -191,8 +219,10 @@
 				78E7F63D2A04C91900C313B7 /* Home Page */,
 				78E7F63F2A04C92D00C313B7 /* Calendar Page */,
 				78E7F63E2A04C92400C313B7 /* Settings Page */,
+				78FCE9962A16AAA9001B21AF /* UserInfo */,
+				78FCE9912A154AB4001B21AF /* Firestore */,
 				78E7F60F2A04C75B00C313B7 /* Assets.xcassets */,
-				780A4FB82A0F33F800337B38 /* GoogleService-Info.plist */,
+				78A53DE02A1283CB0020E8B5 /* GoogleService-Info.plist */,
 				78E7F6112A04C75B00C313B7 /* Preview Content */,
 			);
 			path = MyWellness;
@@ -240,13 +270,13 @@
 			isa = PBXGroup;
 			children = (
 				78E7F6372A04C88E00C313B7 /* SettingsView.swift */,
-				789513AB2A0837FC0051CC59 /* LoginView.swift */,
+				78FE116F2A153AB600659DF3 /* UserProfileSettingsView.swift */,
+				78FCE9992A16D7F8001B21AF /* UserProfileSettingsViewModel.swift */,
 				789513A72A0819FF0051CC59 /* CircularImageView.swift */,
-				780A4FB62A0F299E00337B38 /* AuthenticationManager.swift */,
-				789513A92A082CC50051CC59 /* GravatarProfileFetcher.swift */,
 				7895139D2A076DBF0051CC59 /* UserDataCard.swift */,
 				7895139F2A076DEA0051CC59 /* BMIView.swift */,
 				789513A12A076E0F0051CC59 /* WeightGoalProgressView.swift */,
+				780A4FBA2A0F665A00337B38 /* AccountSettingsView.swift */,
 				789513A32A076E340051CC59 /* SettingsRow.swift */,
 				789513A52A076E590051CC59 /* PrivacyPolicyView.swift */,
 			);
@@ -260,6 +290,28 @@
 				78E7F63B2A04C8AA00C313B7 /* CalendarView.swift */,
 			);
 			path = "Calendar Page";
+			sourceTree = "<group>";
+		};
+		78FCE9912A154AB4001B21AF /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				78A53DE22A1286FA0020E8B5 /* FireStoreDataAccess.swift */,
+				78FCE9922A154ACB001B21AF /* UserManager.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
+		78FCE9962A16AAA9001B21AF /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				789513AB2A0837FC0051CC59 /* LoginView.swift */,
+				78FCE9942A16AA97001B21AF /* SignUpView.swift */,
+				78FCE98F2A153E5A001B21AF /* SignInWithEmailViewModel.swift */,
+				78FCE9972A16AB3B001B21AF /* SignUpWithEmailViewModel.swift */,
+				780A4FB62A0F299E00337B38 /* AuthenticationManager.swift */,
+				789513A92A082CC50051CC59 /* GravatarProfileFetcher.swift */,
+			);
+			path = UserInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +334,8 @@
 				788561E92A06265900F7F6EB /* FSCalendar */,
 				780A4FAA2A0F231E00337B38 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				780A4FAC2A0F231E00337B38 /* FirebaseAuth */,
+				780A4FBD2A104E8300337B38 /* FirebaseFirestore */,
+				780A4FBF2A104E8A00337B38 /* FirebaseFirestoreSwift */,
 			);
 			productName = MyWellness;
 			productReference = 78E7F6082A04C75A00C313B7 /* MyWellness.app */;
@@ -377,7 +431,7 @@
 			files = (
 				78E7F6132A04C75B00C313B7 /* Preview Assets.xcassets in Resources */,
 				78E7F6102A04C75B00C313B7 /* Assets.xcassets in Resources */,
-				780A4FB92A0F33F800337B38 /* GoogleService-Info.plist in Resources */,
+				78A53DE12A1283CB0020E8B5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,20 +460,28 @@
 				788561CC2A04E33E00F7F6EB /* ProgressCircleView.swift in Sources */,
 				78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */,
 				789513A62A076E590051CC59 /* PrivacyPolicyView.swift in Sources */,
+				780A4FBB2A0F665A00337B38 /* AccountSettingsView.swift in Sources */,
 				789513A42A076E340051CC59 /* SettingsRow.swift in Sources */,
 				789513A02A076DEA0051CC59 /* BMIView.swift in Sources */,
 				78E7F6362A04C87E00C313B7 /* HomeView.swift in Sources */,
 				789513AA2A082CC50051CC59 /* GravatarProfileFetcher.swift in Sources */,
+				78FCE9932A154ACB001B21AF /* UserManager.swift in Sources */,
+				78FCE99A2A16D7F8001B21AF /* UserProfileSettingsViewModel.swift in Sources */,
 				788561D42A04EFC200F7F6EB /* ChangeCalorieGoalView.swift in Sources */,
 				780A4FB72A0F299E00337B38 /* AuthenticationManager.swift in Sources */,
+				78FCE9952A16AA97001B21AF /* SignUpView.swift in Sources */,
+				78FCE9982A16AB3B001B21AF /* SignUpWithEmailViewModel.swift in Sources */,
 				788561DF2A05C10000F7F6EB /* ExerciseLogView.swift in Sources */,
 				78E7F6382A04C88E00C313B7 /* SettingsView.swift in Sources */,
 				789513A82A0819FF0051CC59 /* CircularImageView.swift in Sources */,
 				788561E22A05F3A800F7F6EB /* AdjustSleepTimeView.swift in Sources */,
 				7895139E2A076DBF0051CC59 /* UserDataCard.swift in Sources */,
+				78FE11702A153AB600659DF3 /* UserProfileSettingsView.swift in Sources */,
+				78FCE9902A153E5A001B21AF /* SignInWithEmailViewModel.swift in Sources */,
 				788561D62A04EFE100F7F6EB /* ChangeNutrientGoalView.swift in Sources */,
 				788561CE2A04E37500F7F6EB /* ProgressBarView.swift in Sources */,
 				78E7F6452A04CE9E00C313B7 /* SleepCardView.swift in Sources */,
+				78A53DE32A1286FA0020E8B5 /* FireStoreDataAccess.swift in Sources */,
 				788561DD2A05C0EF00F7F6EB /* RecordExerciseView.swift in Sources */,
 				789513A22A076E0F0051CC59 /* WeightGoalProgressView.swift in Sources */,
 				788561D02A04E38900F7F6EB /* MealInfoView.swift in Sources */,
@@ -765,7 +827,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 10.9.0;
+				minimumVersion = 10.4.0;
 			};
 		};
 		788561E82A06265900F7F6EB /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
@@ -788,6 +850,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 780A4FA92A0F231E00337B38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		780A4FBD2A104E8300337B38 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 780A4FA92A0F231E00337B38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		780A4FBF2A104E8A00337B38 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 780A4FA92A0F231E00337B38 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 		788561E92A06265900F7F6EB /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
