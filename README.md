@@ -1,4 +1,10 @@
-# MyWellness-CS125-Spring2023
+# MyWellness
+
+Group: Infinite Loopers
+
+Group Members: Zhuoran Liu, Tongze Mao, Yongqi Liang
+
+---
 
 ## Home Page
 
@@ -10,5 +16,5 @@ TODO: Same as above
 
 ## Settings Page
 
-TODO: Same as above
+TODO: Some small functions need to be update.
 
