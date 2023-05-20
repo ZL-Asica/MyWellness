@@ -80,4 +80,8 @@ final class UserManager {
     func getUser(userId: String) async throws -> DBUser {
         try await userDocument(userId: userId).getDocument(as: DBUser.self, decoder: decoder)
     }
+    
+    func updateUserBasicInfo(user: DBUser) async throws {
+        try userDocument(userId: user.userId).setData(from: user, merge: true, encoder: encoder)
+    }
 }

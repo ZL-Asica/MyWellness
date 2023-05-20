@@ -93,7 +93,7 @@ struct SettingsView: View {
                         }
                         .sheet(isPresented: $showAccountSettings) {
                             // Replace with Account Settings View
-                            AccountSettingsView()
+                            AccountSettingsView(userSession: userSession)
                         }
                         
                         Button(action: {
@@ -113,7 +113,7 @@ struct SettingsView: View {
                         }
                         .sheet(isPresented: $showDataSettings) {
                             // Replace with Data Settings View
-                            Text("Data Settings")
+                            UserProfileSettingsView(userSession: userSession)
                         }
                         
                         Button(action: {
