@@ -53,6 +53,7 @@
 		78FCE9952A16AA97001B21AF /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9942A16AA97001B21AF /* SignUpView.swift */; };
 		78FCE9982A16AB3B001B21AF /* SignUpWithEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9972A16AB3B001B21AF /* SignUpWithEmailViewModel.swift */; };
 		78FCE99A2A16D7F8001B21AF /* UserProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9992A16D7F8001B21AF /* UserProfileSettingsViewModel.swift */; };
+		78FCE99C2A184C11001B21AF /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE99B2A184C11001B21AF /* UserSession.swift */; };
 		78FE11702A153AB600659DF3 /* UserProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FE116F2A153AB600659DF3 /* UserProfileSettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,7 @@
 		78FCE9942A16AA97001B21AF /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		78FCE9972A16AB3B001B21AF /* SignUpWithEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailViewModel.swift; sourceTree = "<group>"; };
 		78FCE9992A16D7F8001B21AF /* UserProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsViewModel.swift; sourceTree = "<group>"; };
+		78FCE99B2A184C11001B21AF /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserSession.swift; path = MyWellness/UserInfo/UserSession.swift; sourceTree = SOURCE_ROOT; };
 		78FE116F2A153AB600659DF3 /* UserProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -304,6 +306,7 @@
 		78FCE9962A16AAA9001B21AF /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				78FCE99B2A184C11001B21AF /* UserSession.swift */,
 				789513AB2A0837FC0051CC59 /* LoginView.swift */,
 				78FCE9942A16AA97001B21AF /* SignUpView.swift */,
 				78FCE98F2A153E5A001B21AF /* SignInWithEmailViewModel.swift */,
@@ -457,6 +460,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78E7F6412A04CE8200C313B7 /* DietCardView.swift in Sources */,
+				78FCE99C2A184C11001B21AF /* UserSession.swift in Sources */,
 				788561CC2A04E33E00F7F6EB /* ProgressCircleView.swift in Sources */,
 				78E7F63C2A04C8AA00C313B7 /* CalendarView.swift in Sources */,
 				789513A62A076E590051CC59 /* PrivacyPolicyView.swift in Sources */,
@@ -664,7 +668,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = pub.zla.MyWellness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -695,7 +699,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = pub.zla.MyWellness;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

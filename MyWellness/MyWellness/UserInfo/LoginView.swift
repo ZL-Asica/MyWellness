@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var userSession: UserSession
     @StateObject private var viewModel = SignInWithEmailViewModel()
     
     var body: some View {
@@ -57,6 +58,11 @@ struct LoginView: View {
                     }
                     .padding()
                     
+                    Text("After you click the Sign In button, please wait for 10 seconds for the server to update your personal info and validate your account information. Please do not click agian or change any value above before an alert pop up. Thanks!")
+                        .font(.caption)
+                        .padding()
+                        .background(Color.pink.opacity(0.4))
+                        .cornerRadius(10)
                     // Sign in button
                     Button {
                         do {
@@ -79,6 +85,12 @@ struct LoginView: View {
                 }
                 .alert(isPresented: $viewModel.showAlert) {
                     if viewModel.hideWindow {
+                        print("Sign in success")
+                        userSession.fetchUserEmail()
+                        userSession.userImageLink = userSession.generateGravatarURL(userEmail: userSession.userEmail)
+                        Task {
+                            await userSession.loadUserBasicInfo()
+                        }
                         presentationMode.wrappedValue.dismiss()
                     }
                     return Alert(
@@ -96,7 +108,9 @@ struct LoginView: View {
     
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        let viewModel = UserProfileSettingsViewModel()
+        let userSession = UserSession(profileViewModel: viewModel)
+        LoginView(userSession: userSession)
     }
 }
 

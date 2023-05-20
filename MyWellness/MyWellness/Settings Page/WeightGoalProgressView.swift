@@ -37,7 +37,7 @@ struct WeightGoalProgressView: View {
                     .frame(width: goalProgress() * UIScreen.main.bounds.width, height: 20)
                     .foregroundColor(Color(UIColor.systemTeal))
                     .cornerRadius(15)
-                    .animation(.linear)
+//                    .animation(.linear)
                 
                 Text("\(progressPercentage(), specifier: "%.1f") %")
                     .font(.caption)

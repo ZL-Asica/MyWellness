@@ -6,17 +6,7 @@
 //
 
 import SwiftUI
-import CryptoKit
 import Combine
-
-// Helper function to generate Gravatar URL
-func generateGravatarURL(userEmail: String, defaultImage: String = "https://www.gravatar.com/avatar") -> String {
-    let email = userEmail.lowercased()
-    let hashedEmail = Insecure.MD5.hash(data: Data(email.utf8)).map { String(format: "%02hhx", $0) }.joined()
-    let gravatarURL = "https://www.gravatar.com/avatar/\(hashedEmail)?d=\(defaultImage)&s=150"
-    
-    return gravatarURL
-}
 
 struct CircularImageView: View {
     @State private var userImage: UIImage? = nil
@@ -46,7 +36,7 @@ struct CircularImageView: View {
 
 struct CircularImageView_Previews: PreviewProvider {
     static var previews: some View {
-        CircularImageView(gravatarURL: generateGravatarURL(userEmail: "someone@somewhere.com"))
+        CircularImageView(gravatarURL: "https://www.gravatar.com/avatar")
     }
 }
 

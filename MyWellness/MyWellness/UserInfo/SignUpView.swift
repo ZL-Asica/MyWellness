@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignUpView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var userSession: UserSession
     @StateObject private var viewModel = SignUpWithEmailViewModel()
     @StateObject private var gravatarProfileFetcher = GravatarProfileFetcher()
     
@@ -167,6 +168,12 @@ struct SignUpView: View {
                     }
                     .alert(isPresented: $viewModel.showAlert) {
                         if viewModel.hideWindow {
+                            print("Sign up success")
+                            userSession.fetchUserEmail()
+                            userSession.userImageLink = userSession.generateGravatarURL(userEmail: userSession.userEmail)
+                            Task {
+                                await userSession.loadUserBasicInfo()
+                            }
                             presentationMode.wrappedValue.dismiss()
                         }
                         return Alert(
@@ -185,6 +192,8 @@ struct SignUpView: View {
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        let viewModel = UserProfileSettingsViewModel()
+        let userSession = UserSession(profileViewModel: viewModel)
+        SignUpView(userSession: userSession)
     }
 }
