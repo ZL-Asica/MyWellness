@@ -9,6 +9,7 @@ import SwiftUI
 import FSCalendar
 
 struct FSCalendarWrapper: UIViewRepresentable {
+    @State var dateCreated: Date
     @Binding var selectedDate: Date
     
     func makeCoordinator() -> Coordinator {
@@ -53,21 +54,41 @@ struct FSCalendarWrapper: UIViewRepresentable {
         uiView.reloadData()
     }
     
-    class Coordinator: NSObject, FSCalendarDelegate {
+    class Coordinator: NSObject, FSCalendarDelegate, FSCalendarDelegateAppearance {
         var parent: FSCalendarWrapper
-        
+
         init(_ parent: FSCalendarWrapper) {
             self.parent = parent
         }
         
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-            parent.selectedDate = date
+            let today = Calendar.current.startOfDay(for: Date())
+            if date >= parent.dateCreated && date <= today {
+                parent.selectedDate = date
+            }
+        }
+        
+        func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+            let today = Calendar.current.startOfDay(for: Date())
+            return date >= parent.dateCreated && date <= today
+        }
+
+        func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+            let today = Calendar.current.startOfDay(for: Date())
+            if date < parent.dateCreated || date > today {
+                if #available(iOS 13.0, *) {
+                    return UIColor.systemGray
+                } else {
+                    return UIColor.lightGray
+                }
+            }
+            return nil // return nil for default color
         }
     }
 }
 
 struct FSCalendarWrapper_Previews: PreviewProvider {
     static var previews: some View {
-        FSCalendarWrapper(selectedDate: .constant(Date()))
+        FSCalendarWrapper(dateCreated: Date(), selectedDate: .constant(Date()))
     }
 }

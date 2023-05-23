@@ -9,20 +9,19 @@ import SwiftUI
 import FSCalendar
 
 struct CalendarView: View {
+    @ObservedObject var userSession: UserSession
+
     @State private var selectedDate = Date()
     
     var body: some View {
         ScrollView {
             VStack {
-                FSCalendarWrapper(selectedDate: $selectedDate)
+                FSCalendarWrapper(dateCreated: userSession.dateCreated, selectedDate: $selectedDate )
                     .frame(height: 350)
                 
                 VStack(spacing: 20) {
-                    //                DietCardView(selectedDate: selectedDate)
-                    //                ExerciseCardView(selectedDate: selectedDate)
-                    //                SleepCardView(selectedDate: selectedDate)
-                    DietCardView()
-                    ExerciseCardView()
+                    DietCardView(userSession: userSession, date: selectedDate)
+                    ExerciseCardView(userSession: userSession, date: selectedDate)
                     SleepCardView()
                 }
                 .padding(.top)
@@ -35,6 +34,8 @@ struct CalendarView: View {
 
 struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView()
+        let viewModel = UserProfileSettingsViewModel()
+        let userSession = UserSession(profileViewModel: viewModel)
+        CalendarView(userSession: userSession)
     }
 }

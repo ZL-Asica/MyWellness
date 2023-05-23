@@ -79,8 +79,8 @@ struct HomeView: View {
                 .padding()
                 
                 VStack {
-                    DietCardView()
-                    ExerciseCardView()
+                    DietCardView(userSession: userSession, date: Date())
+                    ExerciseCardView(userSession: userSession, date: Date())
                     SleepCardView()
                 }
                 .padding(.bottom)

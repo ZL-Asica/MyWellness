@@ -90,7 +90,7 @@ struct ContentView: View {
                             }
                             .tag(0)
                         // Calendar page
-                        CalendarView()
+                        CalendarView(userSession: userSession)
                             .tabItem {
                                 Label("Calendar", systemImage: "calendar")
                             }

@@ -81,6 +81,19 @@ struct SignUpView: View {
                                         }
                                     }
                             }
+
+                            HStack {
+                                Text("Sex(born with):")
+                                    .font(.body)
+                                Picker(selection: $viewModel.sex, label: Text("")) {
+                                    Text("Male").tag(true)
+                                    Text("Female").tag(false)
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
+                                .padding()
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(15)
+                            }
                             
                             HStack{
                                 Text("Weight(ponds):")

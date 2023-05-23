@@ -9,13 +9,13 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-struct UserData {
-    // This userData struct gonna be the basic struct of every user
-    // Will be binded with user's personal UID
-    var userDisplayName: String = "" // update this by gravatar
-    var personalData: UserPersonalData
-    var dailyHealthData: [Date:HealthDataOfUser]
-}
+//struct UserData {
+//    // This userData struct gonna be the basic struct of every user
+//    // Will be binded with user's personal UID
+//    var userDisplayName: String = "" // update this by gravatar
+//    var personalData: UserPersonalData
+//    var dailyHealthData: [Date:HealthDataOfUser]
+//}
 
 struct UserPersonalData {
     // User's personal data
@@ -32,31 +32,31 @@ struct UserPersonalData {
     var goalSettedDate: Date
 }
 
-struct HealthDataOfUser {
-    // Every day will have data split into diet, exercise, and sleeping
-    // Each data structure is corresponde with each
-    var diet: Diet
-    var exercise: Exercise
-    var sleeping: Sleeping
-}
-
-struct Diet {
-    // Will have nutrientsGoals in total
-    // The seperate nutrients intake will be auto calculated when frontend is runing
-    var nutrientsGoals: Meals = Meals(kcal: 0, carbs: 0, protein: 0, fat: 0)
-    var meals: [String:Meals] = [:]
-}
-
-struct Meals {
-    // calorie intake of this meal / calorie goal of the day
-    var kcal: Int
-    // carbs intake of this meal / carbs goal of the day
-    var carbs: Double
-    // carbs intake of this meal / carbs goal of the day
-    var protein: Double
-    // carbs intake of this meal / carbs goal of the day
-    var fat: Double
-}
+//struct HealthDataOfUser {
+//    // Every day will have data split into diet, exercise, and sleeping
+//    // Each data structure is corresponde with each
+//    var diet: Diet
+//    var exercise: Exercise
+//    var sleeping: Sleeping
+//}
+//
+//struct Diet {
+//    // Will have nutrientsGoals in total
+//    // The seperate nutrients intake will be auto calculated when frontend is runing
+//    var nutrientsGoals: Meals = Meals(kcal: 0, carbs: 0, protein: 0, fat: 0)
+//    var meals: [String:Meals] = [:]
+//}
+//
+//struct Meals {
+//    // calorie intake of this meal / calorie goal of the day
+//    var kcal: Int
+//    // carbs intake of this meal / carbs goal of the day
+//    var carbs: Double
+//    // carbs intake of this meal / carbs goal of the day
+//    var protein: Double
+//    // carbs intake of this meal / carbs goal of the day
+//    var fat: Double
+//}
 
 struct Exercise {
     var calorieGoal: Int
@@ -100,41 +100,3 @@ struct Diary {
     // Set a limit of max words count user can enter.
     var diaryContent: String
 }
-
-//final class FirestoreManager {
-//    
-//    static let shared = FirestoreManager()
-//    private let db = Firestore.firestore()
-//    
-//    private init() { }
-//    
-//    func getUserData(uid: String, completion: @escaping (Result<UserData, Error>) -> Void) {
-//        let docRef = db.collection("users").document(uid)
-//
-//        docRef.getDocument { (document, error) in
-//            if let error = error {
-//                completion(.failure(error))
-//            } else if let document = document, document.exists {
-//                do {
-//                    let result = try JSONDecoder().decode(UserData.self, from: document.data())
-//                    completion(.success(result))
-//                } catch let error {
-//                    completion(.failure(error))
-//                }
-//            } else {
-//                completion(.failure(NSError(domain: "", code: -1, userInfo: nil))) // No document found
-//            }
-//        }
-//    }
-//
-//    func updateUserData(uid: String, data: UserData, completion: @escaping (Error?) -> Void) {
-//        do {
-//            let data = try JSONEncoder().encode(data)
-//            db.collection("users").document(uid).setData(data) { error in
-//                completion(error)
-//            }
-//        } catch let error {
-//            completion(error)
-//        }
-//    }
-//}

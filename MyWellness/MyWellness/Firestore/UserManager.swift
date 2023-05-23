@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 struct DBUser: Codable {
     let userId: String
     let dateCreated: Date
+    let sex: Bool
     var email: String?
     var displayName: String
     
@@ -28,8 +29,9 @@ struct DBUser: Codable {
     var goalSettedDate: Date
     var goalExpectDate: Date
     
-    init(userId: String, email: String, displayName: String, weight: Double, height: Double, dateOfBirth: Date, weightGoal: Double, goalExpectDate: Date) {
+    init(userId: String, sex: Bool, email: String, displayName: String, weight: Double, height: Double, dateOfBirth: Date, weightGoal: Double, goalExpectDate: Date) {
         self.userId = userId
+        self.sex = sex
         self.dateCreated = Date()
         self.email = email
         self.displayName = displayName

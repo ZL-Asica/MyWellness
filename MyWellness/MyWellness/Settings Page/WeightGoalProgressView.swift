@@ -37,7 +37,6 @@ struct WeightGoalProgressView: View {
                     .frame(width: goalProgress() * UIScreen.main.bounds.width, height: 20)
                     .foregroundColor(Color(UIColor.systemTeal))
                     .cornerRadius(15)
-//                    .animation(.linear)
                 
                 Text("\(progressPercentage(), specifier: "%.1f") %")
                     .font(.caption)
@@ -47,10 +46,10 @@ struct WeightGoalProgressView: View {
                     .clipShape(Ellipse())
                     .offset(x: CGFloat(goalProgress() * Double(UIScreen.main.bounds.width)) - 25)
             }
-            .padding(.horizontal)
+            .padding(.vertical, 10)
             
         }
-        .padding(.vertical)
+        .padding()
     }
 
     func goalProgress() -> Double {

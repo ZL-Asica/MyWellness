@@ -112,7 +112,16 @@ struct AccountSettingsView: View {
                                     viewModel.alertTitle = "Update Display Name Sucessed"
                                     viewModel.alertMessage = "Your display name has been sucessfully updated."
                                     viewModel.showAlert = true
-                                    presentationMode.wrappedValue.dismiss()
+                                    do {
+                                        try await UserManager.shared.updateUserBasicInfo(user: tempUser)
+                                        userSession.reloadUserLoginInfo()
+                                        presentationMode.wrappedValue.dismiss()
+                                    } catch {
+                                        print("User Data Error: \(error)")
+                                        viewModel.alertTitle = "Changes Failed"
+                                        viewModel.alertMessage = error.localizedDescription
+                                        viewModel.showAlert = true
+                                    }
                                 } catch {
                                     print("Error with updating display name: \(error)")
                                     viewModel.alertTitle = "Update Display Name Failed"

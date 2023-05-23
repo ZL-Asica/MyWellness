@@ -13,13 +13,18 @@ class UserSession: ObservableObject {
     var profileViewModel: UserProfileSettingsViewModel
     
     @Published var isLoading = false
+    @Published var uid: String = ""
+    
+    // -------------------------------------
+    // User Personal Info
+    // -------------------------------------
     
     @Published var userEmail: String = ""
     @Published var userImageLink: String = ""
+    @Published var dateCreated: Date = Date()
+    @Published var sex: String = ""
     
     // user's name, gender, height, weight, age, BMR, BMI, weight goal progress
-//    @Published var gender = "male"
-    
     // User's personal info
     @Published var displayName: String = ""
     @Published var weight: Double = 0
@@ -38,6 +43,20 @@ class UserSession: ObservableObject {
     // Weight user have before starting the program
     @Published var startWeight: Double = 0
     @Published var goalExpectDate: Date = Date()
+    
+    // -------------------------------------
+    // Diet Data
+    // -------------------------------------
+    
+    @Published var dietValueDict: [DietAssignDate] = []
+    
+    // -------------------------------------
+    // Exercise Data
+    // -------------------------------------
+    
+    // -------------------------------------
+    // Sleep Data
+    // -------------------------------------
     
     init(profileViewModel: UserProfileSettingsViewModel) {
         self.profileViewModel = profileViewModel
@@ -63,6 +82,7 @@ class UserSession: ObservableObject {
     func fetchUserEmail(){
         do {
             let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+            uid = authUser.uid
             userEmail = authUser.email ?? ""
         } catch {
             // handle error
@@ -89,9 +109,18 @@ class UserSession: ObservableObject {
         
         do {
             try await profileViewModel.loadCurrentUser()
+            try await profileViewModel.loadCurrentUserDiet()
             print("Called loadCurrentuser")
+            
+            // -------------------------------------
+            // User Personal Info
+            // -------------------------------------
+            
             // User's personal info
             displayName = await profileViewModel.user?.displayName ?? ""
+            dateCreated = await profileViewModel.user?.dateCreated ?? Date()
+            sex = await profileViewModel.user?.sex ?? true ? "male" : "female"
+            
             height = await profileViewModel.user?.height ?? 0
             weight = await profileViewModel.user?.weight ?? 0
             
@@ -106,6 +135,21 @@ class UserSession: ObservableObject {
             // Weight user have before starting the program
             startWeight = await profileViewModel.user?.weightAtGoalSetted ?? 0
             goalExpectDate = await profileViewModel.user?.goalExpectDate ?? Date()
+            
+            // -------------------------------------
+            // Diet Data
+            // -------------------------------------
+            
+            dietValueDict = await profileViewModel.diet?.dietValueDict ?? []
+            
+            // -------------------------------------
+            // Exercise Data
+            // -------------------------------------
+            
+            // -------------------------------------
+            // Sleep Data
+            // -------------------------------------
+            
             isLoading = false
         } catch {
             DispatchQueue.main.async {
@@ -116,10 +160,20 @@ class UserSession: ObservableObject {
     }
     
     private func calculateBMR() {
-            let weightInKg = Float(weight) / 2.205 // Convert weight from pounds to kg
-            let heightInCm = Float(height) * 2.54 // Convert height from inches to cm
-            BMR = Int((10 * weightInKg) + (6.25 * heightInCm) - (5 * Float(age)) + 5)
+        var tempBMR: Double
+        
+        if sex == "male" {
+            tempBMR = 66 + (13.75 * weight) + (5 * height) - (6.75 * Double(age))
+        } else {
+            tempBMR = 655 + (9.56 * weight) + (1.85 * height) - (4.68 * Double(age))
         }
+
+        // Adjust BMR based on activity level
+        let activityMultiplier: Double = 1.2 // Assume sedentary activity level (little to no exercise)
+        tempBMR = tempBMR * activityMultiplier
+        
+        BMR = Int(tempBMR)
+    }
 
     private func calculateBMI() {
         let heightInM = Double(height) * 0.0254 // Convert height from inches to meters
@@ -135,5 +189,11 @@ class UserSession: ObservableObject {
         }
         
         return 0
+    }
+    
+    func calculateDateDifference(date1: Date, date2: Date) -> Int {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: date1, to: date2)
+        return components.day ?? 0
     }
 }

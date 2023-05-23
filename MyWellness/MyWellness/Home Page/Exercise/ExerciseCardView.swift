@@ -9,6 +9,10 @@ import SwiftUI
 import HealthKit
 
 struct ExerciseCardView: View {
+    @ObservedObject var userSession: UserSession
+    
+    @State var date: Date
+    
     @State private var totalSteps: Int = 2400
     @State private var totalMileage: Double = 3.2
     
@@ -38,9 +42,7 @@ struct ExerciseCardView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .sheet(isPresented: $showingChangeTargetCalories) {
-                            ChangeCalorieGoalView(currentCalorieGoal: totalOtherCalories + totalCalories) { newGoal in
-                                goalCalories = newGoal
-                            }
+                            ChangeCalorieGoalView(userSession: userSession, calorieGoal: $goalCalories, date: date)
                         }
 
             
@@ -115,8 +117,8 @@ struct ExerciseCardView: View {
     }
 }
 
-struct ExerciseCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExerciseCardView()
-    }
-}
+//struct ExerciseCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExerciseCardView()
+//    }
+//}

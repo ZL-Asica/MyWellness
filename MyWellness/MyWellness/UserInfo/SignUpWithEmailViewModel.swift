@@ -11,6 +11,7 @@ import Foundation
 final class SignUpWithEmailViewModel: ObservableObject {
     
     @Published var uid = ""
+    @Published var sex = false
     @Published var email = ""
     @Published var password = ""
     @Published var showAlert = false
@@ -45,9 +46,11 @@ final class SignUpWithEmailViewModel: ObservableObject {
                 alertMessage = "You have successfully signed up! Remember to set your personal information first in order to use our app."
                 showAlert = true
                 if let weightValue = Double(weight), let heightValue = Double(height), let weightGoalValue = Double(weightGoal) {
-                    let user = DBUser(userId: uid, email: email, displayName: displayName, weight: weightValue, height: heightValue, dateOfBirth: dateOfBirth, weightGoal: weightGoalValue, goalExpectDate: goalExpectDate)
+                    let user = DBUser(userId: uid, sex: sex, email: email, displayName: displayName, weight: weightValue, height: heightValue, dateOfBirth: dateOfBirth, weightGoal: weightGoalValue, goalExpectDate: goalExpectDate)
                     try await UserManager.shared.createnewUser(user: user)
                 }
+                let userDiet = Diet(userId: uid, kcalGoal: 1000)
+                try await DietManager.shared.createnewUser(diet: userDiet)
             } catch {
                 print("Sign Up Error: \(error)")
                 alertTitle = "Sign Up Failed"

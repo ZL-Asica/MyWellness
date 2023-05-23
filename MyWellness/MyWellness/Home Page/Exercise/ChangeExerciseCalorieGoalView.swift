@@ -1,18 +1,17 @@
 //
-//  ChangeCalorieGoalView.swift
+//  ChangeExerciseCalorieGoalView.swift
 //  MyWellness
 //
-//  Created by ZL Asica on 5/5/23.
+//  Created by ZL Asica on 5/22/23.
 //
 
 import SwiftUI
 
-struct ChangeCalorieGoalView: View {
+struct ChangeExerciseCalorieGoalView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userSession: UserSession
 
     @Binding var calorieGoal: Int
-    
     @State var date: Date
     
     @State private var userEntered: String = ""
@@ -35,16 +34,13 @@ struct ChangeCalorieGoalView: View {
                 calorieNow = calorieGoal
                 calorieGoal = Int(userEntered) ?? calorieGoal
                 if calorieGoal != calorieNow {
-                    var dietValueDict = userSession.dietValueDict
-                    dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].dietValue.nutrientsGoals.kcal = calorieGoal
-                    Task {
-                        let diet = Diet(userId: userSession.uid, dietValueDict: dietValueDict)
-                        do {
-                            try await DietManager.shared.updateUserBasicInfo(diet: diet)
-                        } catch {
-                            print("ChangeCalorieGoal ERROR: \(error)")
-                        }
-                    }
+                    calorieGoal = calorieNow
+//                    var dietValueDict = userSession.dietValueDict
+//                    dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].dietValue.nutrientsGoals.kcal = calorieGoal
+//                    Task {
+//                        let diet = Diet(userId: userSession.uid, dietValueDict: dietValueDict)
+//                        try await DietManager.shared.updateUserBasicInfo(diet: diet)
+//                    }
                 }
                 presentationMode.wrappedValue.dismiss()
             }.foregroundColor(.blue))
@@ -52,12 +48,12 @@ struct ChangeCalorieGoalView: View {
     }
 }
 
-//struct ChangeCalorieGoalView_Previews: PreviewProvider {
+//struct ChangeExerciseCalorieGoalView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        var totalCalories = 1500
 //        let viewModel = UserProfileSettingsViewModel()
 //        let userSession = UserSession(profileViewModel: viewModel)
-//        ChangeCalorieGoalView(userSession: userSession, calorieGoal: $totalCalories)
+//        ChangeExerciseCalorieGoalView(userSession: userSession, calorieGoal: $totalCalories)
 //    }
 //}
 //

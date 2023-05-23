@@ -27,154 +27,113 @@ struct SettingsView: View {
     @State private var showLoginView = false
     @State private var showSignUpView = false
     @State private var isLoading = false
-
-    
-    // user's name, gender, height, weight, age, BMR, BMI, weight goal progress
-    // User's personal info
-    @State private var displayName: String = ""
-    @State private var weight: Double = 0
-    @State private var height: Double = 0
-    
-    @State private var age: Int = 0
-    @State private var BMR: Int = 0
-    @State private var BMI: Double = 0.0
-    
-    // Weight user wants to achieve
-    @State private var weightGoal: Double = 0
-    // Weight user have before starting the program
-    @State private var startWeight: Double = 0
-    @State private var goalExpectDate: Date = Date()
-
     
     var body: some View {
         ScrollView {
-            if isLoading {
-                Spacer()
-                ProgressView()
-                    .scaleEffect(2)
-                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-            } else {
+            VStack{
+                // Get user's profile picture from Gravatar
+                CircularImageView(gravatarURL: userSession.userImageLink)
+                    .frame(width: 100, height: 100)
+                
+                Text("\(userSession.displayName)")
+                    .font(.title2)
+                Text("\(userSession.sex)\(Image(systemName: "person"))")
+                    .font(.caption)
+                
+                // User's basic information data
                 VStack {
-                    // Get user's profile picture from Gravatar
-                    CircularImageView(gravatarURL: userSession.userImageLink)
-                        .frame(width: 100, height: 100)
-                    
-                    Text("\(displayName)")
-                        .font(.title2)
-                    
-                    // User's basic information data
-                    VStack {
-                        HStack {
-                            UserDataCard(title: "Height", value: convertToFeetAndInches(inches: height), imageName: "ruler")
-                            UserDataCard(title: "Weight", value: "\(weight) lbs", imageName: "scalemass")
-                        }
-                        
-                        HStack {
-                            UserDataCard(title: "Age", value: "\(age)", imageName: "calendar")
-                            UserDataCard(title: "BMR", value: "\(BMR) kcal", imageName: "flame")
-                        }
+                    HStack {
+                        UserDataCard(title: "Height", value: convertToFeetAndInches(inches: userSession.height), imageName: "ruler")
+                        UserDataCard(title: "Weight", value: "\(userSession.weight) lbs", imageName: "scalemass")
                     }
                     
-                    // BMI and Weight Goal Progress
-                    VStack {
-                        BMIView(bmi: BMI)
-                        WeightGoalProgressView(startWeight: startWeight, targetWeight: weightGoal, currentWeight: weight)
+                    HStack {
+                        UserDataCard(title: "Age", value: "\(userSession.age)", imageName: "calendar")
+                        UserDataCard(title: "BMR", value: "\(userSession.BMR) kcal", imageName: "flame")
                     }
-                    .padding(.vertical)
-                    
-                    // Settings
-                    VStack {
-                        Button(action: {
-                            showAccountSettings.toggle()
-                        }) {
-                            SettingsRow(title: "Account Settings")
-                        }
-                        .sheet(isPresented: $showAccountSettings) {
-                            // Replace with Account Settings View
-                            AccountSettingsView(userSession: userSession)
-                        }
-                        
-                        Button(action: {
-                            showNotificationSettings.toggle()
-                        }) {
-                            SettingsRow(title: "Notification Settings")
-                        }
-                        .sheet(isPresented: $showNotificationSettings) {
-                            // Replace with Notification Settings View
-                            Text("Notification Settings")
-                        }
-                        
-                        Button(action: {
-                            showDataSettings.toggle()
-                        }) {
-                            SettingsRow(title: "Data Settings")
-                        }
-                        .sheet(isPresented: $showDataSettings) {
-                            // Replace with Data Settings View
-                            UserProfileSettingsView(userSession: userSession)
-                        }
-                        
-                        Button(action: {
-                            showPrivacyPolicy.toggle()
-                        }) {
-                            SettingsRow(title: "Privacy Policy")
-                        }
-                        .sheet(isPresented: $showPrivacyPolicy) {
-                            PrivacyPolicyView()
-                        }
-                        
-                        Button(action: {
-                            showAboutUs.toggle()
-                        }) {
-                            SettingsRow(title: "About Us")
-                        }
-                        .sheet(isPresented: $showAboutUs) {
-                            // Replace with About Us View
-                            Text("About Us")
-                        }
-                    }
-                    
-                    Button("Sign Out"){
-                        Task {
-                            do {
-                                try viewModel.signOut()
-                                userSession.resetUserData()
-                            } catch {
-                                print("Sign Out ERROR \(error)")
-                            }
-                        }
-                    }
-                    .font(.headline)
-                    .foregroundColor(.red)
-                    .frame(width: 200, height: 40)
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .padding(.top, 20)
                 }
-                .padding()
+                
+                // BMI and Weight Goal Progress
+                VStack {
+                    BMIView(bmi: userSession.BMI)
+                    WeightGoalProgressView(startWeight: userSession.startWeight, targetWeight: userSession.weightGoal, currentWeight: userSession.weight)
+                }
+                .padding(.vertical)
+                
+                // Settings
+                VStack {
+                    Button(action: {
+                        showAccountSettings.toggle()
+                    }) {
+                        SettingsRow(title: "Account Settings")
+                    }
+                    .sheet(isPresented: $showAccountSettings) {
+                        // Replace with Account Settings View
+                        AccountSettingsView(userSession: userSession)
+                    }
+                    
+                    Button(action: {
+                        showNotificationSettings.toggle()
+                    }) {
+                        SettingsRow(title: "Notification Settings")
+                    }
+                    .sheet(isPresented: $showNotificationSettings) {
+                        // Replace with Notification Settings View
+                        Text("Notification Settings")
+                    }
+                    
+                    Button(action: {
+                        showDataSettings.toggle()
+                    }) {
+                        SettingsRow(title: "Data Settings")
+                    }
+                    .sheet(isPresented: $showDataSettings) {
+                        // Replace with Data Settings View
+                        UserProfileSettingsView(userSession: userSession)
+                    }
+                    
+                    Button(action: {
+                        showPrivacyPolicy.toggle()
+                    }) {
+                        SettingsRow(title: "Privacy Policy")
+                    }
+                    .sheet(isPresented: $showPrivacyPolicy) {
+                        PrivacyPolicyView()
+                    }
+                    
+                    Button(action: {
+                        showAboutUs.toggle()
+                    }) {
+                        SettingsRow(title: "About Us")
+                    }
+                    .sheet(isPresented: $showAboutUs) {
+                        // Replace with About Us View
+                        Text("About Us")
+                        Link("Here is our website", destination: URL(string: "https://mywellness.zla.app/")!)
+                            .font(.headline)
+                            .padding(.top)
+                    }
+                }
+                
+                Button("Sign Out"){
+                    Task {
+                        do {
+                            try viewModel.signOut()
+                            userSession.resetUserData()
+                        } catch {
+                            print("Sign Out ERROR \(error)")
+                        }
+                    }
+                }
+                .font(.headline)
+                .foregroundColor(.red)
+                .frame(width: 200, height: 40)
+                .background(Color.red.opacity(0.2))
+                .cornerRadius(10)
+                .padding(.top, 20)
             }
+            .padding()
         }
-        .task {
-            DispatchQueue.main.async {
-                isLoading = true
-            }
-            displayName = userSession.displayName
-            weight = userSession.weight
-            height = userSession.height
-            age = userSession.age
-            BMR = userSession.BMR
-            BMI = userSession.BMI
-            weightGoal = userSession.weightGoal
-            startWeight = userSession.startWeight
-            goalExpectDate = userSession.goalExpectDate
-            
-            DispatchQueue.main.async {
-                isLoading = false
-            }
-        }
-        .navigationBarTitle("Settings")
     }
     
     func convertToFeetAndInches(inches: Double) -> String {

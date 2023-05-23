@@ -26,7 +26,7 @@ struct BMIView: View {
                 .frame(height: 20)
                 .padding(.horizontal)
         }
-        .padding(.vertical)
+        .padding(.vertical, 10)
     }
     
     func normalize(bmi: Double) -> Double {

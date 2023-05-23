@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct DietCardView: View {
-    @State private var totalCalories = 2000
-    @State private var consumedCalories = 1500
-    @State private var carbs = (consumed: 200, total: 250)
-    @State private var protein = (consumed: 80, total: 100)
-    @State private var fat = (consumed: 50, total: 70)
-    @State private var meals = (breakfast: 600, lunch: 500, dinner: 400)
+    @ObservedObject var userSession: UserSession
+    
+    @State var date: Date
+    @State private var dateDifference: Int = 0
+    
+    @State private var totalCalories = 0
+    @State private var consumedCalories = 0
+    @State private var carbs = (consumed: 0, total: 0)
+    @State private var protein = (consumed: 0, total: 0)
+    @State private var fat = (consumed: 0, total: 0)
+    @State private var meals = (breakfast: 0, lunch: 0, dinner: 0)
+    
+    @State private var breakfast = Meals(kcal: 0, carbs: 0, protein: 0, fat: 0)
+    @State private var lunch = Meals(kcal: 0, carbs: 0, protein: 0, fat: 0)
+    @State private var dinner = Meals(kcal: 0, carbs: 0, protein: 0, fat: 0)
+    
     @State private var showingRecordDiet = false
     @State private var showingChangeCalorieGoal = false
     @State private var showingChangeNutrientGoal = false
@@ -33,9 +43,7 @@ struct DietCardView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .sheet(isPresented: $showingChangeCalorieGoal) {
-                            ChangeCalorieGoalView(currentCalorieGoal: totalCalories) { newGoal in
-                                totalCalories = newGoal
-                            }
+                            ChangeCalorieGoalView(userSession: userSession, calorieGoal: $totalCalories, date: date)
                         }
             
             HStack {
@@ -49,15 +57,7 @@ struct DietCardView: View {
                 showingChangeNutrientGoal.toggle()
             }
             .sheet(isPresented: $showingChangeNutrientGoal) {
-                ChangeNutrientGoalView(
-                    currentCarbGoal: carbs.total,
-                    currentProteinGoal: protein.total,
-                    currentFatGoal: fat.total
-                ) { newCarbs, newProtein, newFat in
-                    carbs.total = newCarbs
-                    protein.total = newProtein
-                    fat.total = newFat
-                }
+                ChangeNutrientGoalView(userSession: userSession, date: Date(), totalCalories: totalCalories, currentCarbGoal: $carbs.total, currentProteinGoal: $protein.total, currentFatGoal: $fat.total)
             }
             
             HStack {
@@ -80,7 +80,7 @@ struct DietCardView: View {
                     .cornerRadius(8)
             }
             .sheet(isPresented: $showingRecordDiet) {
-                RecordDietView()
+                RecordDietView(userSession: userSession, date: date, consumedCalories: $consumedCalories, carbs: $carbs, protein: $protein, fat: $fat, meals: $meals, breakfast: $breakfast, lunch: $lunch, dinner: $dinner)
             }
             .padding(.top, 5)
             .frame(maxWidth: .infinity, alignment: .center)
@@ -90,11 +90,35 @@ struct DietCardView: View {
         .background(Color(.systemGray6))
         .cornerRadius(12)
         .padding(.horizontal)
+        .onAppear {
+            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: Date())
+            let dietToday = userSession.dietValueDict[dateDifference]
+            totalCalories = dietToday.dietValue.nutrientsGoals.kcal
+            
+            carbs.total = dietToday.dietValue.nutrientsGoals.carbs
+            protein.total = dietToday.dietValue.nutrientsGoals.protein
+            fat.total = dietToday.dietValue.nutrientsGoals.fat
+            
+            breakfast = dietToday.dietValue.meals[0]
+            lunch = dietToday.dietValue.meals[1]
+            dinner = dietToday.dietValue.meals[2]
+            
+            meals.breakfast = breakfast.kcal
+            meals.lunch = lunch.kcal
+            meals.dinner = dinner.kcal
+            
+            consumedCalories = meals.breakfast + meals.lunch + meals.dinner
+            carbs.consumed = breakfast.carbs + lunch.carbs + dinner.carbs
+            protein.consumed = breakfast.protein + lunch.protein + dinner.protein
+            fat.consumed = breakfast.fat + lunch.fat + dinner.fat
+        }
     }
 }
 
-struct DietCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        DietCardView()
-    }
-}
+//struct DietCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let viewModel = UserProfileSettingsViewModel()
+//        let userSession = UserSession(profileViewModel: viewModel)
+//        DietCardView(userSession: userSession, dateToday: Date())
+//    }
+//}
