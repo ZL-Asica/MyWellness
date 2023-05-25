@@ -5,9 +5,9 @@
 //  Created by ZL Asica on 5/15/23.
 //
 
-import Foundation
-import Firebase
-import FirebaseFirestore
+//import Foundation
+//import Firebase
+//import FirebaseFirestore
 
 //struct UserData {
 //    // This userData struct gonna be the basic struct of every user

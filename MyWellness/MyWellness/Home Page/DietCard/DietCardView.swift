@@ -91,7 +91,7 @@ struct DietCardView: View {
         .cornerRadius(12)
         .padding(.horizontal)
         .onAppear {
-            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: Date())
+            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)
             let dietToday = userSession.dietValueDict[dateDifference]
             totalCalories = dietToday.dietValue.nutrientsGoals.kcal
             

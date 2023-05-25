@@ -58,6 +58,10 @@ final class SignUpWithEmailViewModel: ObservableObject {
                 let userExercise = Exercise(userId: uid, kcalGoal: 1000)
                 try await ExerciseManager.shared.createnewUser(exercise: userExercise)
                 print("\tNew User Exercise Sheet Created Success")
+                // Create new user's sleep info
+                let userSleep = Sleep(userId: uid, todayDate: Date())
+                try await SleepManager.shared.createnewUser(sleep: userSleep)
+                print("\tNew User Sleep Sheet Created Success")
             } catch {
                 print("Sign Up Error: \(error)")
                 alertTitle = "Sign Up Failed"

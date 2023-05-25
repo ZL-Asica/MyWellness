@@ -81,7 +81,7 @@ struct HomeView: View {
                 VStack {
                     DietCardView(userSession: userSession, date: Date())
                     ExerciseCardView(userSession: userSession, date: Date())
-                    SleepCardView()
+                    SleepCardView(userSession: userSession, date: Date())
                 }
                 .padding(.bottom)
                 .onAppear {

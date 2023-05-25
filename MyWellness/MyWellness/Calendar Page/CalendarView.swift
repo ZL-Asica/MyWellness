@@ -22,7 +22,7 @@ struct CalendarView: View {
                 VStack(spacing: 20) {
                     DietCardView(userSession: userSession, date: selectedDate)
                     ExerciseCardView(userSession: userSession, date: selectedDate)
-                    SleepCardView()
+                    SleepCardView(userSession: userSession, date: selectedDate)
                 }
                 .padding(.top)
             }

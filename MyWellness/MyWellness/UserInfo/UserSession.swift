@@ -60,6 +60,8 @@ class UserSession: ObservableObject {
     // Sleep Data
     // -------------------------------------
     
+    @Published var sleepValueDict: [SleepAssignDate] = [SleepAssignDate(todayDate: Date())]
+    
     init(profileViewModel: UserProfileSettingsViewModel) {
         self.profileViewModel = profileViewModel
         reloadUserLoginInfo()
@@ -153,6 +155,8 @@ class UserSession: ObservableObject {
             // -------------------------------------
             // Sleep Data
             // -------------------------------------
+            
+            sleepValueDict = await profileViewModel.sleep?.sleepValueDict ?? [SleepAssignDate(todayDate: Date())]
             
             isLoading = false
         } catch {

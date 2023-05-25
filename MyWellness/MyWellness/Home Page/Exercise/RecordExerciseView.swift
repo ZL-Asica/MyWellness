@@ -58,11 +58,11 @@ struct RecordExerciseView: View {
                                 let exercise = Exercise(userId: userSession.uid, exerciseValueDict: exerciseValueDict)
                                 do {
                                     try await ExerciseManager.shared.updateUserExerciseInfo(exercise: exercise)
+                                    userSession.reloadUserLoginInfo()
                                 } catch {
                                     print("RecordExercise ERROR: \(error)")
                                 }
                             }
-                            userSession.reloadUserLoginInfo()
                             presentationMode.wrappedValue.dismiss()
                         }
                     }

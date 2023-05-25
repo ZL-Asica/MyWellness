@@ -9,6 +9,10 @@ import SwiftUI
 
 struct AdjustSleepTimeView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var userSession: UserSession
+    @State var date: Date
+    @State var indi: Int // 0 is yestarday(actual), 1 is today's goal(setted)
+    
     @Binding var startTime: Date
     @Binding var endTime: Date
     @Binding var totalSleepTime: TimeInterval
@@ -46,6 +50,29 @@ struct AdjustSleepTimeView: View {
             Button("Save") {
                 // Return those three Date and TimeInterval values and close the popover
                 totalSleepTime = endTime.timeIntervalSince(startTime)
+                if !(startTime >= endTime || totalSleepTime <= 100) {
+                    var sleepValueDict = userSession.sleepValueDict
+                    
+                    var tempSleep = SleepAssignDate(todayDate: date)
+                    if indi == 0 {
+                        tempSleep.actualStartTimeLastNight = startTime
+                        tempSleep.actualEndTimeLastNight = endTime
+                    } else {
+                        tempSleep.settedStartTime = startTime
+                        tempSleep.settedEndTime = endTime
+                    }
+                    sleepValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)] = tempSleep
+                    
+                    Task {
+                        let sleep = Sleep(userId: userSession.uid, sleepValueDict: sleepValueDict)
+                        do {
+                            try await SleepManager.shared.updateUserSleepInfo(sleep: sleep)
+                            userSession.reloadUserLoginInfo()
+                        } catch {
+                            print("AdjustSleepTime ERROR: \(error)")
+                        }
+                    }
+                }
                 presentationMode.wrappedValue.dismiss()
             }
             .font(.headline)
@@ -65,8 +92,8 @@ struct AdjustSleepTimeView: View {
     }
 }
 
-struct AdjustSleepTimeView_Previews: PreviewProvider {
-    static var previews: some View {
-        AdjustSleepTimeView(startTime: .constant(Date()), endTime: .constant(Date()), totalSleepTime: .constant(0))
-    }
-}
+//struct AdjustSleepTimeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AdjustSleepTimeView(startTime: .constant(Date()), endTime: .constant(Date()), totalSleepTime: .constant(0))
+//    }
+//}

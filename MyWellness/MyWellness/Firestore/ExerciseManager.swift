@@ -64,9 +64,9 @@ struct Exercise: Codable {
     }
 }
 
-enum HealthDataError: Error {
-    case authorizationDenied
-}
+//enum HealthDataError: Error {
+//    case authorizationDenied
+//}
 
 final class ExerciseManager {
     private var gravatarProfileFetcher = GravatarProfileFetcher()

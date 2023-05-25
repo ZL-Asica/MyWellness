@@ -9,6 +9,11 @@ import SwiftUI
 
 struct DiaryInputView: View {
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var userSession: UserSession
+    
+    @State var diary: Diary
+    @State var date: Date
+    
     @State private var weatherToday: String = ""
     @State private var emotionToday: String = ""
     @State private var diaryContentToday: String = ""
@@ -85,27 +90,68 @@ struct DiaryInputView: View {
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
-
-            Button(action: {presentationMode.wrappedValue.dismiss()}) {
-                // Save diary content, weatherToday, and emotionToday
-                Text("Save")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 15)
-                    .background(Color.blue)
-                    .cornerRadius(8)
-                
+                .foregroundColor(.primary) // Ensure text color is visible in dark mode
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.primary.opacity(0.2), lineWidth: 1) // Add border for better visibility
+                )
+                .background(Color(.systemGray5)) // Set background color for dark mode visibility
+                .cornerRadius(10)
+                .padding(.bottom, 10)
+            
+            // Word Count Indicator
+            HStack {
+                Spacer()
+                Text("\(diaryContentToday.split(whereSeparator: \.isWhitespace).count) words")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
             }
+            
+            Button("Save") {
+                // Save diary content, weatherToday, and emotionToday
+                var sleepValueDict = userSession.sleepValueDict
+                
+                var tempDiary = Diary()
+                
+                tempDiary.weatherSelected = weatherToday
+                tempDiary.emotionSelected = emotionToday
+                tempDiary.diaryContent = diaryContentToday
+                
+                sleepValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].diary = tempDiary
+                
+                Task {
+                    let sleep = Sleep(userId: userSession.uid, sleepValueDict: sleepValueDict)
+                    do {
+                        try await SleepManager.shared.updateUserSleepInfo(sleep: sleep)
+                        userSession.reloadUserLoginInfo()
+                    } catch {
+                        print("AdjustSleepTime ERROR: \(error)")
+                    }
+                }
+                presentationMode.wrappedValue.dismiss()
+            }
+            .font(.headline)
+            .foregroundColor(.white)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 15)
+            .background(Color.blue)
+            .cornerRadius(8)
             .padding(.top, 20)
 
         }
         .padding()
+        .onAppear {
+            weatherToday = diary.weatherSelected
+            emotionToday = diary.emotionSelected
+            diaryContentToday = diary.diaryContent
+        }
     }
 }
 
-struct DiaryInputView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiaryInputView()
-    }
-}
+//struct DiaryInputView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DiaryInputView()
+//    }
+//}
