@@ -49,8 +49,15 @@ final class SignUpWithEmailViewModel: ObservableObject {
                     let user = DBUser(userId: uid, sex: sex, email: email, displayName: displayName, weight: weightValue, height: heightValue, dateOfBirth: dateOfBirth, weightGoal: weightGoalValue, goalExpectDate: goalExpectDate)
                     try await UserManager.shared.createnewUser(user: user)
                 }
+                print("\tNew User Baisc Info Sheet Created Success")
+                // Create new user's diet info
                 let userDiet = Diet(userId: uid, kcalGoal: 1000)
                 try await DietManager.shared.createnewUser(diet: userDiet)
+                print("\tNew User Diet Sheet Created Success")
+                // Create new user's exercise info
+                let userExercise = Exercise(userId: uid, kcalGoal: 1000)
+                try await ExerciseManager.shared.createnewUser(exercise: userExercise)
+                print("\tNew User Exercise Sheet Created Success")
             } catch {
                 print("Sign Up Error: \(error)")
                 alertTitle = "Sign Up Failed"

@@ -48,11 +48,13 @@ class UserSession: ObservableObject {
     // Diet Data
     // -------------------------------------
     
-    @Published var dietValueDict: [DietAssignDate] = []
+    @Published var dietValueDict: [DietAssignDate] = [DietAssignDate(kcalGoal: 100)]
     
     // -------------------------------------
     // Exercise Data
     // -------------------------------------
+    
+    @Published var exerciseValueDict: [ExerciseAssignDate] = [ExerciseAssignDate(kcalGoal: 100)]
     
     // -------------------------------------
     // Sleep Data
@@ -140,11 +142,13 @@ class UserSession: ObservableObject {
             // Diet Data
             // -------------------------------------
             
-            dietValueDict = await profileViewModel.diet?.dietValueDict ?? []
+            dietValueDict = await profileViewModel.diet?.dietValueDict ?? [DietAssignDate(kcalGoal: 100)]
             
             // -------------------------------------
             // Exercise Data
             // -------------------------------------
+            
+            exerciseValueDict = await profileViewModel.exercise?.exerciseValueDict ?? [ExerciseAssignDate(kcalGoal: 100)]
             
             // -------------------------------------
             // Sleep Data

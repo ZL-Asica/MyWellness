@@ -85,7 +85,8 @@ struct RecordDietView: View {
                     Task {
                         let diet = Diet(userId: userSession.uid, dietValueDict: dietValueDict)
                         do {
-                            try await DietManager.shared.updateUserBasicInfo(diet: diet)
+                            try await DietManager.shared.updateUserDietInfo(diet: diet)
+                            userSession.reloadUserLoginInfo()
                         } catch {
                             print("RecordDiet ERROR: \(error)")
                         }

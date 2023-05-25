@@ -20,13 +20,13 @@ struct ChangeExerciseCalorieGoalView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Calorie Goal", text: $userEntered)
+                TextField("Exercis Calorie Goal", text: $userEntered)
                     .keyboardType(.numberPad)
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
             }
             .padding()
-            .navigationBarTitle("Change Calories Goal")
+            .navigationBarTitle("Change Exercise Goal")
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             }.foregroundColor(.red),
@@ -34,13 +34,18 @@ struct ChangeExerciseCalorieGoalView: View {
                 calorieNow = calorieGoal
                 calorieGoal = Int(userEntered) ?? calorieGoal
                 if calorieGoal != calorieNow {
-                    calorieGoal = calorieNow
-//                    var dietValueDict = userSession.dietValueDict
-//                    dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].dietValue.nutrientsGoals.kcal = calorieGoal
-//                    Task {
-//                        let diet = Diet(userId: userSession.uid, dietValueDict: dietValueDict)
-//                        try await DietManager.shared.updateUserBasicInfo(diet: diet)
-//                    }
+                    calorieNow = calorieGoal
+                    var exerciseValueDict = userSession.exerciseValueDict
+                    exerciseValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].kcalGoal = calorieGoal
+                    Task {
+                        let exercise = Exercise(userId: userSession.uid, exerciseValueDict: exerciseValueDict)
+                        do {
+                            try await ExerciseManager.shared.updateUserExerciseInfo(exercise: exercise)
+                            userSession.reloadUserLoginInfo()
+                        } catch {
+                            print("ChangeExerciseCalorieGoal ERROR: \(error)")
+                        }
+                    }
                 }
                 presentationMode.wrappedValue.dismiss()
             }.foregroundColor(.blue))

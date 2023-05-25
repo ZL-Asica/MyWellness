@@ -101,7 +101,7 @@ final class DietManager {
         try await userDocument(userId: userId).getDocument(as: Diet.self, decoder: decoder)
     }
     
-    func updateUserBasicInfo(diet: Diet) async throws {
+    func updateUserDietInfo(diet: Diet) async throws {
         try userDocument(userId: diet.userId).setData(from: diet, merge: true, encoder: encoder)
     }
 }

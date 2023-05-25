@@ -11,6 +11,7 @@ import Foundation
 final class UserProfileSettingsViewModel: ObservableObject {
     @Published private(set) var user: DBUser? = nil
     @Published private(set) var diet: Diet? = nil
+    @Published private(set) var exercise: Exercise? = nil
     private var uid = ""
     
     private var userLoadedContinuation: CheckedContinuation<Void, Never>? = nil
@@ -31,6 +32,7 @@ final class UserProfileSettingsViewModel: ObservableObject {
         let authDataResult = try AuthenticationManager.shared.getAuthenticatedUser()
         self.uid = authDataResult.uid
         self.diet = try await DietManager.shared.getUser(userId: self.uid)
+        self.exercise = try await ExerciseManager.shared.getUser(userId: self.uid)
         
         // Resume the continuation once the user is loaded
         userLoadedContinuation?.resume()

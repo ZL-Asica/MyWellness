@@ -33,7 +33,6 @@ struct SignUpView: View {
                         TextField("Email...", text: $viewModel.email)
                             .autocapitalization(.none)
                             .keyboardType(.emailAddress)
-                            .textContentType(.emailAddress)
                             .padding()
                             .background(Color.gray.opacity(0.2))
                             .cornerRadius(15)
