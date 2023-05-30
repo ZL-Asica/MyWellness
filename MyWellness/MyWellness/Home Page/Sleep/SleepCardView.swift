@@ -108,6 +108,10 @@ struct SleepCardView: View {
         .padding(.horizontal)
         .onAppear {
             dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)
+            let sleepValueCount = userSession.sleepValueDict.count
+            if sleepValueCount < dateDifference {
+                dateDifference = sleepValueCount - 1
+            }
             let sleepToday = userSession.sleepValueDict[dateDifference]
             settedStartTime = sleepToday.settedStartTime
             settedEndTime = sleepToday.settedEndTime

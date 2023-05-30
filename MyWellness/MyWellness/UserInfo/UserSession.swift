@@ -104,12 +104,7 @@ class UserSession: ObservableObject {
     }
     
     func loadUserBasicInfo() async {
-        isLoading = true
-        defer {
-            DispatchQueue.main.async {
-                self.isLoading = false
-            }
-        }
+        DispatchQueue.main.async { self.isLoading = true }
         
         do {
             try await profileViewModel.loadCurrentUser()
@@ -121,44 +116,65 @@ class UserSession: ObservableObject {
             // -------------------------------------
             
             // User's personal info
-            displayName = await profileViewModel.user?.displayName ?? ""
-            dateCreated = await profileViewModel.user?.dateCreated ?? Date()
-            sex = await profileViewModel.user?.sex ?? true ? "male" : "female"
+            let displayName = await profileViewModel.user?.displayName ?? ""
+            let dateCreated = await profileViewModel.user?.dateCreated ?? Date()
+            let sex = await profileViewModel.user?.sex ?? true ? "male" : "female"
             
-            height = await profileViewModel.user?.height ?? 0
-            weight = await profileViewModel.user?.weight ?? 0
+            let height = await profileViewModel.user?.height ?? 0
+            let weight = await profileViewModel.user?.weight ?? 0
             
-            dateOfBirth = await profileViewModel.user?.dateOfBirth ?? Date()
-            age = calculateAge(from: dateOfBirth)
+            let dateOfBirth = await profileViewModel.user?.dateOfBirth ?? Date()
+            let age = calculateAge(from: dateOfBirth)
             
-            calculateBMR()
-            calculateBMI()
-            
-            // Weight user wants to achieve
-            weightGoal = await profileViewModel.user?.weightGoal ?? 0
-            // Weight user have before starting the program
-            startWeight = await profileViewModel.user?.weightAtGoalSetted ?? 0
-            goalExpectDate = await profileViewModel.user?.goalExpectDate ?? Date()
+            let weightGoal = await profileViewModel.user?.weightGoal ?? 0
+            let startWeight = await profileViewModel.user?.weightAtGoalSetted ?? 0
+            let goalExpectDate = await profileViewModel.user?.goalExpectDate ?? Date()
             
             // -------------------------------------
             // Diet Data
             // -------------------------------------
             
-            dietValueDict = await profileViewModel.diet?.dietValueDict ?? [DietAssignDate(kcalGoal: 100)]
+            let dietValueDict = await profileViewModel.diet?.dietValueDict ?? [DietAssignDate(kcalGoal: 100)]
             
             // -------------------------------------
             // Exercise Data
             // -------------------------------------
             
-            exerciseValueDict = await profileViewModel.exercise?.exerciseValueDict ?? [ExerciseAssignDate(kcalGoal: 100)]
+            let exerciseValueDict = await profileViewModel.exercise?.exerciseValueDict ?? [ExerciseAssignDate(kcalGoal: 100)]
             
             // -------------------------------------
             // Sleep Data
             // -------------------------------------
             
-            sleepValueDict = await profileViewModel.sleep?.sleepValueDict ?? [SleepAssignDate(todayDate: Date())]
+            let sleepValueDict = await profileViewModel.sleep?.sleepValueDict ?? [SleepAssignDate(todayDate: Date())]
             
-            isLoading = false
+            DispatchQueue.main.async {
+                self.displayName = displayName
+                self.dateCreated = dateCreated
+                self.sex = sex
+                self.height = height
+                self.weight = weight
+                self.dateOfBirth = dateOfBirth
+                self.age = age
+                self.weightGoal = weightGoal
+                self.startWeight = startWeight
+                self.goalExpectDate = goalExpectDate
+                self.dietValueDict = dietValueDict
+                self.exerciseValueDict = exerciseValueDict
+                self.sleepValueDict = sleepValueDict
+                // Use DispatchGroup to wait for calculateBMR() and calculateBMI() to finish
+                
+                DispatchQueue.main.async {
+                    Task {
+                        self.BMR = await self.calculateBMR()
+                        self.BMI = await self.calculateBMI()
+                        self.updateIfNeeded(BMR: self.BMR)
+                        self.isLoading = false
+                        print("[SUCCESS] loadUserBasicInfo")
+                    }
+                }
+            }
+            
         } catch {
             DispatchQueue.main.async {
                 print("Error in loadUserBasicInfo(): \(error)")
@@ -167,25 +183,69 @@ class UserSession: ObservableObject {
         }
     }
     
-    private func calculateBMR() {
+    private func updateIfNeeded(BMR: Int) {
+        let dateDifference = calculateDateDifference(date1: dateCreated, date2: Date())
+        let dietValueCount = dietValueDict.count
+        let dietTimeInterval: TimeInterval = TimeInterval(dietValueCount * 86400) // 86400 is the number of seconds in a day
+        if dietValueCount <= dateDifference {
+            print("-----UPDATING START-----")
+            let newDictNeedToAdd = dateDifference - dietValueCount + 1
+            print("\(newDictNeedToAdd) more empty sheets need to be create")
+            for i in stride(from: 0, to: newDictNeedToAdd, by: 1) {
+                print("\tupdating user's sheets: \(i + 1) in \(newDictNeedToAdd) bmr \(BMR)")
+                self.dietValueDict.append(DietAssignDate(kcalGoal: BMR))
+                self.exerciseValueDict.append(ExerciseAssignDate(kcalGoal: BMR))
+                let iTimeInterval: TimeInterval = TimeInterval(i * 86400) // 86400 is the number of seconds in a day
+                let sleepAssignDate = dateCreated.addingTimeInterval(dietTimeInterval + iTimeInterval)
+                self.sleepValueDict.append(SleepAssignDate(todayDate: sleepAssignDate))
+            }
+            Task {
+                do {
+                    try await DietManager.shared.updateUserDietInfo(diet: Diet(userId: self.uid, dietValueDict: self.dietValueDict))
+                } catch {
+                    print("error: \(error)")
+                }
+            }
+            Task {
+                do {
+                    try await ExerciseManager.shared.updateUserExerciseInfo(exercise: Exercise(userId: self.uid, exerciseValueDict: self.exerciseValueDict))
+                } catch {
+                    print("error: \(error)")
+                }
+            }
+            Task {
+                do {
+                    try await SleepManager.shared.updateUserSleepInfo(sleep: Sleep(userId: self.uid, sleepValueDict: self.sleepValueDict))
+                } catch {
+                    print("error: \(error)")
+                }
+            }
+            print("-----UPDATING COMPELETE-----")
+        }
+    }
+
+    
+    func calculateBMR() async -> Int {
         var tempBMR: Double
-        
-        if sex == "male" {
-            tempBMR = 66 + (13.75 * weight) + (5 * height) - (6.75 * Double(age))
+
+        if self.sex == "male" {
+            tempBMR = 66 + (13.75 * self.weight) + (5 * self.height) - (6.75 * Double(self.age))
         } else {
-            tempBMR = 655 + (9.56 * weight) + (1.85 * height) - (4.68 * Double(age))
+            tempBMR = 655 + (9.56 * self.weight) + (1.85 * self.height) - (4.68 * Double(self.age))
         }
 
         // Adjust BMR based on activity level
         let activityMultiplier: Double = 1.2 // Assume sedentary activity level (little to no exercise)
         tempBMR = tempBMR * activityMultiplier
         
-        BMR = Int(tempBMR)
+        print("bmr here \(Int(tempBMR))")
+
+        return Int(tempBMR)
     }
 
-    private func calculateBMI() {
-        let heightInM = Double(height) * 0.0254 // Convert height from inches to meters
-        BMI = Double(weight) / Double((heightInM * heightInM))
+    private func calculateBMI() async -> Double {
+        let heightInM = self.height * 0.0254 // Convert height from inches to meters
+        return self.weight / (heightInM * heightInM)
     }
     
     private func calculateAge(from date: Date) -> Int {

@@ -119,6 +119,10 @@ struct ExerciseCardView: View {
         .padding(.horizontal)
         .onAppear {
             dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)
+            let exerciseValueCount = userSession.sleepValueDict.count
+            if exerciseValueCount < dateDifference {
+                dateDifference = exerciseValueCount - 1
+            }
             let exerciseToday = userSession.exerciseValueDict[dateDifference]
             goalCalories = exerciseToday.kcalGoal
 //            Task {

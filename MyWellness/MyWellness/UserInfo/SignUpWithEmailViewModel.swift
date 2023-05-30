@@ -11,7 +11,7 @@ import Foundation
 final class SignUpWithEmailViewModel: ObservableObject {
     
     @Published var uid = ""
-    @Published var sex = false
+    @Published var sex = false // true: male, false: female
     @Published var email = ""
     @Published var password = ""
     @Published var showAlert = false
@@ -50,12 +50,15 @@ final class SignUpWithEmailViewModel: ObservableObject {
                     try await UserManager.shared.createnewUser(user: user)
                 }
                 print("\tNew User Baisc Info Sheet Created Success")
+                
+                // Create info sheets below
+                let bmr = calculateBMR(sex: sex, weight: Double(weight) ?? 140, height: Double(height) ?? 100, age: calculateAge(from: dateOfBirth))
                 // Create new user's diet info
-                let userDiet = Diet(userId: uid, kcalGoal: 1000)
+                let userDiet = Diet(userId: uid, kcalGoal: bmr)
                 try await DietManager.shared.createnewUser(diet: userDiet)
                 print("\tNew User Diet Sheet Created Success")
                 // Create new user's exercise info
-                let userExercise = Exercise(userId: uid, kcalGoal: 1000)
+                let userExercise = Exercise(userId: uid, kcalGoal: bmr)
                 try await ExerciseManager.shared.createnewUser(exercise: userExercise)
                 print("\tNew User Exercise Sheet Created Success")
                 // Create new user's sleep info
@@ -69,5 +72,32 @@ final class SignUpWithEmailViewModel: ObservableObject {
                 showAlert = true
             }
         }
+    }
+    
+    private func calculateAge(from date: Date) -> Int {
+        let currentDate = Date()
+        let components = Calendar.current.dateComponents([.year], from: date, to: currentDate)
+        
+        if let years = components.year {
+            return years
+        }
+        
+        return 0
+    }
+    
+    private func calculateBMR(sex: Bool, weight: Double, height: Double, age: Int) -> Int {
+        var tempBMR: Double
+        
+        if sex {
+            tempBMR = 66 + (13.75 * weight) + (5 * height) - (6.75 * Double(age))
+        } else {
+            tempBMR = 655 + (9.56 * weight) + (1.85 * height) - (4.68 * Double(age))
+        }
+
+        // Adjust BMR based on activity level
+        let activityMultiplier: Double = 1.2 // Assume sedentary activity level (little to no exercise)
+        tempBMR = tempBMR * activityMultiplier
+        
+        return Int(tempBMR)
     }
 }

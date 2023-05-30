@@ -47,9 +47,9 @@ struct DietCardView: View {
                         }
             
             HStack {
-                ProgressBarView(title: "Carbs", value: carbs.consumed, maxValue: carbs.total, color: .purple).padding(.trailing, 10)
-                ProgressBarView(title: "Protein", value: protein.consumed, maxValue: protein.total, color: .purple).padding(.trailing, 10)
-                ProgressBarView(title: "Fat", value: fat.consumed, maxValue: fat.total, color: .purple)
+                ProgressBarView(title: "Carbs", value: carbs.consumed, maxValue: carbs.total).padding(.trailing, 10)
+                ProgressBarView(title: "Protein", value: protein.consumed, maxValue: protein.total).padding(.trailing, 10)
+                ProgressBarView(title: "Fat", value: fat.consumed, maxValue: fat.total)
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .contentShape(Rectangle())
@@ -92,6 +92,10 @@ struct DietCardView: View {
         .padding(.horizontal)
         .onAppear {
             dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)
+            let dietValueCount = userSession.sleepValueDict.count
+            if dietValueCount < dateDifference {
+                dateDifference = dietValueCount - 1
+            }
             let dietToday = userSession.dietValueDict[dateDifference]
             totalCalories = dietToday.dietValue.nutrientsGoals.kcal
             
