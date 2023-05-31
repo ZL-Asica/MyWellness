@@ -238,8 +238,6 @@ class UserSession: ObservableObject {
         let activityMultiplier: Double = 1.2 // Assume sedentary activity level (little to no exercise)
         tempBMR = tempBMR * activityMultiplier
         
-        print("bmr here \(Int(tempBMR))")
-
         return Int(tempBMR)
     }
 
