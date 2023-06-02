@@ -45,8 +45,12 @@ struct SleepAssignDate: Codable {
         // Set the end time to today at 7 AM
         self.settedEndTime = calendar.date(bySettingHour: 7, minute: 0, second: 0, of: todayDate)!
         
-        self.actualStartTimeLastNight = self.settedStartTime
-        self.actualEndTimeLastNight = self.settedEndTime
+        // Set actualStartTimeLastNight to settedStartTime minus one day
+        self.actualStartTimeLastNight = calendar.date(byAdding: .day, value: -1, to: self.settedStartTime)!
+        
+        // Set actualEndTimeLastNight to settedEndTime minus one day
+        self.actualEndTimeLastNight = calendar.date(byAdding: .day, value: -1, to: self.settedEndTime)!
+
         self.diary = Diary()
     }
 }
