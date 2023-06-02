@@ -181,8 +181,6 @@ struct SignUpView: View {
                     .alert(isPresented: $viewModel.showAlert) {
                         if viewModel.hideWindow {
                             print("Sign up success")
-                            userSession.fetchUserEmail()
-                            userSession.userImageLink = userSession.generateGravatarURL(userEmail: userSession.userEmail)
                             Task {
                                 await userSession.loadUserBasicInfo()
                             }
