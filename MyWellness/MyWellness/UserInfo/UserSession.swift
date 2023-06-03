@@ -194,7 +194,7 @@ class UserSession: ObservableObject {
             for i in stride(from: 0, to: newDictNeedToAdd, by: 1) {
                 print("\tupdating user's sheets: \(i + 1) in \(newDictNeedToAdd) bmr \(BMR)")
                 self.dietValueDict.append(DietAssignDate(kcalGoal: BMR))
-                self.exerciseValueDict.append(ExerciseAssignDate(kcalGoal: BMR))
+                self.exerciseValueDict.append(ExerciseAssignDate(kcalGoal: Int(Double(BMR) * 0.15)))
                 let iTimeInterval: TimeInterval = TimeInterval(i * 86400) // 86400 is the number of seconds in a day
                 let sleepAssignDate = dateCreated.addingTimeInterval(dietTimeInterval + iTimeInterval)
                 self.sleepValueDict.append(SleepAssignDate(todayDate: sleepAssignDate))
