@@ -223,6 +223,94 @@ struct HomeView: View {
 
         return recommendation
     }
+    
+    private func recommendationSystem(BMI: Double, BMR: Double, dietHistory: [DietAssignDate], exerciseHistory: [ExerciseAssignDate], sleepHistory: [SleepAssignDate]) -> String {
+        var recommendation = ""
+        // Get the current time first
+        // For recommendation part, get last first days of data maximum.
+        // Use valid data only(valid data: 1. Have kcal log for at lease one of breakfast,
+        // lunch, or dinner on last day. 2. Have actual sleep data on last day.). If not enough
+        // for 5 days, use how many days valid for recommendation(average value).
+        // If no valid data in past 5 days, just remind log the data as below.
+        // 1. If user was the first day registered. Skip the sleep time log.
+        // Go to the thrid part directly
+        // 2. After the set sleep end time last night, and before 7 am,
+        // and user not set their last night sleep data yet(start = 23, end = 1), remind them to set it.
+        // 3. If user already set their last night sleep time, and time before 11am,
+        // remind the user to log their breakfast data, based on last 5 days data
+        // and the progress of their weight/goal date(if applicable) to remind them
+        // what should to do(kcal, carb, protein, or fat).
+        // If already set, and time after 10 am, remind them to log lunch data.
+        // Otherwise, remind them to log exercise, and give recommendation.
+        // 4. If time after 11 am and before 5 pm, remind them to set lunch.
+        // give them recommendation same as breakfast.
+        // If already set, and time after 4 pm, remind them to log dinner data.
+        // Otherwise, remind them to log exercise, and give recommendation.
+        // 5. If time after 5 pm and before 9 pm, remind them to set the dinner data,
+        // give the same kind of recommendation as breakfast and lunch.
+        // If already set, remind to set sleep time.
+        // 6. After 9 pm, remind user to confirm their sleep time tonight
+        // if they have not changed it to corrct data yet(start = 23, end = 1).
+        // Give some recommendation on that. If already set, just remind
+        // them recommendation of exercise and give recommendation.
+        // 7. Set 50% of random chance to give recommendation on exercise for users,
+        // during the breakfast, lunch, dinner setting time.
+        
+        // Get the current time first
+        let hour = Calendar.current.component(.hour, from: Date())
+
+        switch hour {
+            case 0...6:
+                // User has not logged today's sleep
+                if let latestSleep = sleepHistory.last, Calendar.current.component(.hour, from: latestSleep.actualEndTimeLastNight) == 1 {
+                    recommendation += "Please set your actual sleep time for last night."
+                } else {
+                    // User already logged sleep, remind to log breakfast
+                    recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory)
+                }
+            case 7...10:
+                // Remind user to log breakfast and lunch
+                if let latestSleep = sleepHistory.last, Calendar.current.component(.hour, from: latestSleep.actualEndTimeLastNight) == 1 {
+                    recommendation += "Please set your actual sleep time for last night."
+                } else {
+                    if Int.random(in: 1...2) == 1 { // 50% chance to recommend exercise
+                        recommendation += "\n" + getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
+                    } else {
+                        recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory)
+                    }
+                }
+            case 11...18:
+                // Remind user to log lunch
+                if Int.random(in: 1...2) == 1 { // 50% chance to recommend exercise
+                    recommendation += "\n" + getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
+                } else {
+                    recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory)
+                }
+            case 19...20:
+                // Remind user to log dinner
+                recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory)
+                recommendation += "\nPlease set your sleep time for tonight."
+            case 21...23:
+                // Remind user to confirm sleep time
+                if let latestSleep = sleepHistory.last, Calendar.current.component(.hour, from: latestSleep.settedStartTime) == 23 && Calendar.current.component(.hour, from: latestSleep.settedEndTime) == 1 {
+                    recommendation += "Please confirm your sleep time and write your diary for tonight."
+                } else {
+                    if Int.random(in: 1...2) == 1 { // 50% chance to recommend exercise
+                        recommendation += getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
+                    } else {
+                        recommendation += "\n" + getSleepRecommendation(sleepHistory: sleepHistory)
+                    }
+                }
+            default:
+                break
+        }
+
+//        // Add sleep recommendation if data is sufficient
+//        if sleepHistory.count > 1 {
+//            recommendation += "\n" + getSleepRecommendation(sleepHistory: sleepHistory)
+//        }
+        return recommendation
+    }
 
     
     var body: some View {
@@ -253,25 +341,27 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("Recommendations for you:")
                         .font(.headline)
+                    // Recommendation
+                    Text("\(recommendationSystem(BMI:userSession.BMI, BMR: Double(userSession.BMR), dietHistory: userSession.dietValueDict, exerciseHistory: userSession.exerciseValueDict, sleepHistory: userSession.sleepValueDict))")
                     
-                    // Recommendation for Diet
-                    HStack {
-                        Text("Diet: ")
-                            .bold()
-                        Text("\(getDietRecommendation(BMI: userSession.BMI, dietHistory: userSession.dietValueDict, exerciseHistory: userSession.exerciseValueDict))\n")
-                    }
-                    // Recommendation for Exercise
-                    HStack {
-                        Text("Exercise: ")
-                            .bold()
-                        Text("\(getExerciseRecommendation(BMI: userSession.BMI, BMR: Double(userSession.BMR), exerciseHistory: userSession.exerciseValueDict))\n")
-                    }
-                    // Recommendation for Sleep
-                    HStack {
-                        Text("Sleep: ")
-                            .bold()
-                        Text("\(getSleepRecommendation(sleepHistory: userSession.sleepValueDict))\n")
-                    }
+//                    // Recommendation for Diet
+//                    HStack {
+//                        Text("Diet: ")
+//                            .bold()
+//                        Text("\(getDietRecommendation(BMI: userSession.BMI, dietHistory: userSession.dietValueDict, exerciseHistory: userSession.exerciseValueDict))\n")
+//                    }
+//                    // Recommendation for Exercise
+//                    HStack {
+//                        Text("Exercise: ")
+//                            .bold()
+//                        Text("\(getExerciseRecommendation(BMI: userSession.BMI, BMR: Double(userSession.BMR), exerciseHistory: userSession.exerciseValueDict))\n")
+//                    }
+//                    // Recommendation for Sleep
+//                    HStack {
+//                        Text("Sleep: ")
+//                            .bold()
+//                        Text("\(getSleepRecommendation(sleepHistory: userSession.sleepValueDict))\n")
+//                    }
                 }
                 .padding()
                 .frame(maxWidth: .infinity)

@@ -24,7 +24,6 @@ struct WeightGoalProgressView: View {
                 Text("\(Int(targetWeight)) lbs")
             }
             .font(.caption)
-            .padding(.horizontal)
             
             ZStack(alignment: .leading) {
                 Rectangle()
@@ -46,7 +45,6 @@ struct WeightGoalProgressView: View {
                     .clipShape(Ellipse())
                     .offset(x: CGFloat(goalProgress() * Double(UIScreen.main.bounds.width)) - 25)
             }
-            .padding(.vertical, 10)
             
         }
         .padding()

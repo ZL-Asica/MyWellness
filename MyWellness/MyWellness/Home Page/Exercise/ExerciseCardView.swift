@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import HealthKit
+//import HealthKit
 
 struct ExerciseCardView: View {
     @ObservedObject var userSession: UserSession

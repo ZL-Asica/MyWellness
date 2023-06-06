@@ -18,6 +18,9 @@ struct CalendarView: View {
             VStack {
                 FSCalendarWrapper(dateCreated: userSession.dateCreated, selectedDate: $selectedDate )
                     .frame(height: 350)
+                    .onAppear {
+                        print("\tHere is the selectedDate from CalendarView: \(selectedDate)")
+                    }
                 
                 VStack(spacing: 20) {
                     DietCardView(userSession: userSession, date: selectedDate)

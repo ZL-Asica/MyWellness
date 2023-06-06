@@ -1,13 +1,13 @@
 //
-//  AdjustSleepTimeView.swift
+//  AdjustSleepGoalView.swift
 //  MyWellness
 //
-//  Created by ZL Asica on 5/5/23.
+//  Created by ZL Asica on 6/5/23.
 //
 
 import SwiftUI
 
-struct AdjustSleepTimeView: View {
+struct AdjustSleepGoalView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userSession: UserSession
     @State var date: Date
@@ -22,12 +22,12 @@ struct AdjustSleepTimeView: View {
 
     var body: some View {
         VStack {
-            Text("Adjust Last Night's Sleep Time")
+            Text("Adjust Today's Sleep Goal")
                 .font(.headline)
                 .padding(.bottom, 10)
             
             HStack {
-                DatePicker("Start Time (Last night)", selection: $insideStartTime, displayedComponents: .hourAndMinute)
+                DatePicker("Start Time (Today)", selection: $insideStartTime, displayedComponents: .hourAndMinute)
                     .padding(.top, 10)
                     .font(.footnote)
                     .onChange(of: insideStartTime) { newStartTime in // Add this block
@@ -38,7 +38,7 @@ struct AdjustSleepTimeView: View {
                     .font(.title2)
                     .padding(.horizontal, 10)
 
-                DatePicker("End Time (Today)", selection: $insideEndTime, displayedComponents: .hourAndMinute)
+                DatePicker("End Time (Tomorrow)", selection: $insideEndTime, displayedComponents: .hourAndMinute)
                     .padding(.top, 10)
                     .font(.footnote)
                     .onChange(of: insideEndTime) { newEndTime in // Add this block
@@ -62,8 +62,8 @@ struct AdjustSleepTimeView: View {
                     
                     var tempSleep = SleepAssignDate(todayDate: date)
                     
-                    tempSleep.actualStartTimeLastNight = startTime
-                    tempSleep.actualEndTimeLastNight = endTime
+                    tempSleep.settedStartTime = startTime
+                    tempSleep.settedEndTime = endTime
                     
                     sleepValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)] = tempSleep
                     
@@ -101,8 +101,8 @@ struct AdjustSleepTimeView: View {
     }
 }
 
-//struct AdjustSleepTimeView_Previews: PreviewProvider {
+//struct AdjustSleepGoalView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        AdjustSleepTimeView(startTime: .constant(Date()), endTime: .constant(Date()), totalSleepTime: .constant(0))
+//        AdjustSleepGoalView()
 //    }
 //}

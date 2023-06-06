@@ -42,6 +42,7 @@ class UserSession: ObservableObject {
     @Published var weightGoal: Double = 0
     // Weight user have before starting the program
     @Published var startWeight: Double = 0
+    @Published var goalSetDate: Date = Date()
     @Published var goalExpectDate: Date = Date()
     
     // -------------------------------------
@@ -128,6 +129,7 @@ class UserSession: ObservableObject {
             
             let weightGoal = await profileViewModel.user?.weightGoal ?? 0
             let startWeight = await profileViewModel.user?.weightAtGoalSetted ?? 0
+            let goalSetDate = await profileViewModel.user?.goalSettedDate ?? Date()
             let goalExpectDate = await profileViewModel.user?.goalExpectDate ?? Date()
             
             // -------------------------------------
@@ -158,6 +160,7 @@ class UserSession: ObservableObject {
                 self.age = age
                 self.weightGoal = weightGoal
                 self.startWeight = startWeight
+                self.goalSetDate = goalSetDate
                 self.goalExpectDate = goalExpectDate
                 self.dietValueDict = dietValueDict
                 self.exerciseValueDict = exerciseValueDict

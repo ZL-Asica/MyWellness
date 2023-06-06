@@ -57,8 +57,8 @@ struct SettingsView: View {
                 VStack {
                     BMIView(bmi: userSession.BMI)
                     WeightGoalProgressView(startWeight: userSession.startWeight, targetWeight: userSession.weightGoal, currentWeight: userSession.weight)
+                    WeightGoalDateView(startDate: userSession.goalSetDate, targetDate: userSession.goalExpectDate)
                 }
-                .padding(.vertical)
                 
                 // Settings
                 VStack {
@@ -72,15 +72,15 @@ struct SettingsView: View {
                         AccountSettingsView(userSession: userSession)
                     }
                     
-                    Button(action: {
-                        showNotificationSettings.toggle()
-                    }) {
-                        SettingsRow(title: "Notification Settings")
-                    }
-                    .sheet(isPresented: $showNotificationSettings) {
-                        // Replace with Notification Settings View
-                        Text("Notification Settings")
-                    }
+//                    Button(action: {
+//                        showNotificationSettings.toggle()
+//                    }) {
+//                        SettingsRow(title: "Notification Settings")
+//                    }
+//                    .sheet(isPresented: $showNotificationSettings) {
+//                        // Replace with Notification Settings View
+//                        Text("Notification Settings")
+//                    }
                     
                     Button(action: {
                         showDataSettings.toggle()
