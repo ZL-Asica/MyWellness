@@ -46,83 +46,135 @@ struct HomeView: View {
     // --------------------------------
     // Get Recommendation functions here
     // --------------------------------
-    private func getDietRecommendation(BMI: Double, dietHistory: [DietAssignDate], exerciseHistory: [ExerciseAssignDate]) -> String {
+    private func getDietRecommendation(BMI: Double, dietHistory: [DietAssignDate], exerciseHistory: [ExerciseAssignDate], meals: Int) -> String {
         var recommendation = ""
 
         // Based on BMI
         if BMI < 18.5 {
-            recommendation += "Increase intake with balanced meals."
+            recommendation += "\n\tIncrease intake with balanced meals."
         } else if BMI > 25 {
-            recommendation += "Decrease intake and avoid high-fat/high-carb food."
+            recommendation += "\n\tDecrease intake and avoid high-fat/high-carb food."
         }
+        
+        print("\tDietRecommendation load success")
 
         // Based on diet history
-        
+        let totalDataCount = dietHistory.count
         // 1. If first day register.
-        if dietHistory.count == 1 {
+        if totalDataCount == 1 {
             return recommendation
         }
-        // 2. Get yestday's diet data.
-        if let latestDiet = dietHistory.last?.dietValue {
-            print("\tDietRecommendation load success")
-            
-            let carbIntake = latestDiet.meals[0].carbs + latestDiet.meals[1].carbs +  latestDiet.meals[2].carbs
-            let proteinInstake = latestDiet.meals[0].protein + latestDiet.meals[1].protein +  latestDiet.meals[2].protein
-            let fatIntake = latestDiet.meals[0].fat + latestDiet.meals[1].fat +  latestDiet.meals[2].fat
-            // 3. update recommendation on basic nutrition
-            if carbIntake == 0 && proteinInstake == 0 && fatIntake == 0 {
-                recommendation = "\nStarts today's diet record."
-                return recommendation
-            }
-            // carbs
-            if carbIntake <  latestDiet.nutrientsGoals.carbs {
-                recommendation += "\nIntake more carbs today."
-            } else if Double(carbIntake) > (Double(latestDiet.nutrientsGoals.carbs) * 1.2) {
-                recommendation += "\nDecrease carbs today."
-            }
-            // protein
-            if proteinInstake <  latestDiet.nutrientsGoals.protein {
-                recommendation += "\nIntake more protein today."
-            } else if Double(proteinInstake) > (Double(latestDiet.nutrientsGoals.protein) * 1.2) {
-                recommendation += "\nDecrease protein today."
-            }
-            // fat
-            if fatIntake <  latestDiet.nutrientsGoals.fat {
-                recommendation += "\nIntake more fat today."
-            } else if Double(fatIntake) > (Double(latestDiet.nutrientsGoals.fat) * 1.1) {
-                recommendation += "\nDecrease fat today."
-            }
-            // 4. update on kcal of each meal
-            var exerciseConsumed = 0
-            for i in stride(from: 0, through: exerciseHistory.last!.activitiesData.count - 1, by: 1) {
-                exerciseConsumed += exerciseHistory.last!.activitiesData[i].calorie
-            }
-            let kcalTotalIntake = Double(latestDiet.meals[0].kcal + latestDiet.meals[1].kcal + latestDiet.meals[2].kcal)
-            if kcalTotalIntake - Double(exerciseConsumed) > Double(latestDiet.nutrientsGoals.kcal) {
-                recommendation += "\nReduce your total intake."
-            } else {
-                // Breakfast: Around 25-30% of daily calorie intake
-                if Double(latestDiet.meals[0].kcal) > kcalTotalIntake * 0.35 {
-                    recommendation += "\nReduce your breakfast portion."
-                } else if Double(latestDiet.meals[0].kcal) < kcalTotalIntake * 0.20 {
-                    recommendation += "\nIncrease your breakfast portion."
-                }
-                // Lunch: Around 35-40% of daily calorie intake
-                if Double(latestDiet.meals[1].kcal) > kcalTotalIntake * 0.45 {
-                    recommendation += "\nReduce your lunch portion."
-                } else if Double(latestDiet.meals[1].kcal) < kcalTotalIntake * 0.30 {
-                    recommendation += "\nIncrease your lunch portion."
-                }
-                // Dinner: Around 25-35% of daily calorie intake
-                if Double(latestDiet.meals[2].kcal) > kcalTotalIntake * 0.40 {
-                    recommendation += "\nReduce your dinner portion."
-                } else if Double(latestDiet.meals[2].kcal) < kcalTotalIntake * 0.20 {
-                    recommendation += "\nIncrease your dinner portion."
-                }
-            }
-        } else {
-            print("\tDietRecommendation load failed")
+        // 2. Get last 5 days' diet data.
+        // Rach data have 3 values, corresponse to 3 meals a day.
+        var avgCarb = [0, 0, 0]
+        var avgProtein = [0, 0, 0]
+        var avgFat = [0, 0, 0]
+        var avgKcal = [0, 0, 0]
+        
+        var validDaysCount = 0
+        var exceedDietDays = 0
+        var loopTime = 5
+        
+        // If not enough for 5 days data, use how many it has
+        if totalDataCount < 5 {
+            loopTime = totalDataCount
         }
+        
+        for i in 0..<loopTime {
+            let tempDietValue = dietHistory[totalDataCount - i - 1].dietValue
+            let tempExerciseValue = exerciseHistory[totalDataCount - i - 1].activitiesData
+            if tempDietValue.meals[0].kcal == 0 && tempDietValue.meals[1].kcal == 0 && tempDietValue.meals[2].kcal == 0 {
+                continue
+            }
+            // Add validDaysCount for calculating the average value
+            validDaysCount += 1
+            
+            avgCarb[0] += tempDietValue.meals[0].carbs
+            avgCarb[1] += tempDietValue.meals[1].carbs
+            avgCarb[2] += tempDietValue.meals[2].carbs
+            
+            avgProtein[0] += tempDietValue.meals[0].protein
+            avgProtein[1] += tempDietValue.meals[1].protein
+            avgProtein[2] += tempDietValue.meals[2].protein
+            
+            avgFat[0] += tempDietValue.meals[0].fat
+            avgFat[1] += tempDietValue.meals[1].fat
+            avgFat[2] += tempDietValue.meals[2].fat
+            
+            avgKcal[0] += tempDietValue.meals[0].kcal
+            avgKcal[1] += tempDietValue.meals[1].kcal
+            avgKcal[2] += tempDietValue.meals[2].kcal
+            
+            // Consider exercise consumed calorie from BMR
+            var exerciseConsumed = 0
+            for j in stride(from: 0, through: tempExerciseValue.count - 1, by: 1) {
+                exerciseConsumed += tempExerciseValue[j].calorie
+            }
+            
+            if tempDietValue.meals[0].kcal + tempDietValue.meals[1].kcal + tempDietValue.meals[2].kcal > tempDietValue.nutrientsGoals.kcal - exerciseConsumed {
+                exceedDietDays += 1
+            }
+        }
+        // calculate the actual averga value here
+        avgCarb[0] /= validDaysCount
+        avgCarb[1] /= validDaysCount
+        avgCarb[2] /= validDaysCount
+        
+        avgProtein[0] /= validDaysCount
+        avgProtein[1] /= validDaysCount
+        avgProtein[2] /= validDaysCount
+
+        avgFat[0] /= validDaysCount
+        avgFat[1] /= validDaysCount
+        avgFat[2] /= validDaysCount
+        
+        avgKcal[0] /= validDaysCount
+        avgKcal[1] /= validDaysCount
+        avgKcal[2] /= validDaysCount
+        
+        // 3. Calculate the goal of carbs, protein, and fat based on the calorie intake
+        let carbsShouldBe = Int(Double(avgKcal[meals]) * 0.5 / 4 * 1.1)
+        let proteinShouldBe = Int(Double(avgKcal[meals]) * 0.3 / 4 * 1.1)
+        let fatShouldBe = Int(Double(avgKcal[meals]) * 0.2 / 9 * 1.1)
+        
+        let mealsPortion = [(0.25, 0.35), (0.3, 0.4), (0.25, 0.35)]
+        
+        let mealsCorrespondWords = ["breakfast", "lunch", "dinner"]
+        
+        // 4. Check whether user has already logged today's meals th meal.
+        
+        var indi = meals
+        if dietHistory.last?.dietValue.meals[meals].kcal != 0 {
+            if meals == 2 {
+                indi = 0
+            } else {
+                indi = meals + 1
+            }
+        }
+        
+        // 5. Recommendation of diet
+        if avgCarb[indi] < Int(Double(carbsShouldBe) * mealsPortion[indi].0) {
+            recommendation += "\n\tTake more carbs for your next \(mealsCorrespondWords[indi])"
+        } else if avgCarb[indi] > Int(Double(carbsShouldBe) * mealsPortion[indi].1) {
+            recommendation += "\n\tTake less carbs for your next \(mealsCorrespondWords[indi])"
+        }
+        
+        if avgProtein[indi] < Int(Double(proteinShouldBe) * mealsPortion[indi].0) {
+            recommendation += "\n\tTake more protein for your next \(mealsCorrespondWords[indi])"
+        } else if avgProtein[indi] > Int(Double(proteinShouldBe) * mealsPortion[indi].1) {
+            recommendation += "\n\tTake less protein for your next \(mealsCorrespondWords[indi])"
+        }
+        
+        if avgFat[indi] < Int(Double(fatShouldBe) * mealsPortion[indi].0) {
+            recommendation += "\n\tTake more fat for your next \(mealsCorrespondWords[indi])"
+        } else if avgFat[indi] > Int(Double(fatShouldBe) * mealsPortion[indi].1) {
+            recommendation += "\n\tTake less fat for your next \(mealsCorrespondWords[indi])"
+        }
+        
+        if exceedDietDays > 0 {
+            recommendation += "\n\tYou should consider decrease your total calorie intake."
+        }
+        
         return recommendation
     }
 
@@ -131,49 +183,60 @@ struct HomeView: View {
 
         // Based on BMI
         if BMI > 25 {
-            recommendation += "Include cardio exercises to lose weight."
+            recommendation += "\n\tInclude cardio exercises to lose weight."
         }
-
+        
+        print("\tExerciseRecommendation load success")
+        
         // Based on exercise history
+        let totalDataCount = exerciseHistory.count
         // 1. If first day register.
-        if exerciseHistory.count == 1 {
+        if totalDataCount == 1 {
             return recommendation
         }
-        // 2. Get yestday's exercise data.
-        if let latestExercise = exerciseHistory.last?.activitiesData {
-            print("\tExerciseRecommendation load success")
+        // 2. Get last 5 days' exercise data.
+        var avgDuration = 0
+        var avgKcal = 0
         
-            if latestExercise.count == 0 {
-                recommendation += "\nExercise plz."
-            } else {
-                var totalExerciseTime = 0
-                var exerciseConsumed = 0
-                for i in stride(from: 0, through: latestExercise.count, by: 1) {
-                    totalExerciseTime += latestExercise[i].duration
-                    exerciseConsumed += latestExercise[i].calorie
-                }
-                
-                // based on exercise calorie
-                if Double(exerciseConsumed) < Double(exerciseHistory.last!.kcalGoal) * 0.2 {
-                    recommendation += "\nConsume more colorie."
-                } else if Double(exerciseConsumed) < Double(exerciseHistory.last!.kcalGoal) * 0.5 {
-                    recommendation += "\nConsume one time more colorie."
-                } else if Double(exerciseConsumed) < Double(exerciseHistory.last!.kcalGoal) * 0.7 {
-                    recommendation += "\nGreat! Just some more to your goal!"
-                } else if Double(exerciseConsumed) < Double(exerciseHistory.last!.kcalGoal) {
-                    recommendation += "\nAlmost there! Just one step more!"
-                } else {
-                    recommendation += "\nNice job today!"
-                    return recommendation
-                }
-                
-                // based on exercise time
-                if totalExerciseTime / 60 < 30 {
-                    recommendation += "\nIncrease your exercise time."
-                }
+        var achievedDays = 0
+        var almostAchieve = 0
+        var loopTime = 5
+        
+        // If not enough for 5 days data, use how many it has
+        if totalDataCount < 5 {
+            loopTime = totalDataCount
+        }
+        
+        for i in 0..<loopTime {
+            let tempExerciseValue = exerciseHistory[totalDataCount - i - 1].activitiesData
+            let tempExerciseGoal = exerciseHistory[totalDataCount - i - 1].kcalGoal
+            if tempExerciseValue.count == 0 {
+                continue
             }
-        } else {
-            print("\tExerciseRecommendation load failed")
+            // Temp variable for calculating the total duration and colorie consumed on that day.
+            var totalDuration = 0
+            var totalKcal = 0
+            for j in 0..<tempExerciseValue.count {
+                totalDuration += tempExerciseValue[j].duration
+                totalKcal += tempExerciseValue[j].calorie
+            }
+            // If the kcal consumed is higher than the goal set, add 1 to it.
+            if totalKcal > tempExerciseGoal {
+                achievedDays += 1
+            } else if totalKcal > Int(Double(tempExerciseGoal) * 0.8) {
+                almostAchieve += 1
+            }
+            avgDuration += totalDuration
+            avgKcal += totalKcal
+        }
+        
+        // 3. Recommendation of exercise
+        if achievedDays >= Int(Double(loopTime) * 0.5) {
+            recommendation += "\n\tGreat job, you have achieved your goal pretty well!"
+        } else if almostAchieve >= Int(Double(loopTime) * 0.5) {
+            recommendation += "\n\tNice, you almost achieved your goal, just one more step!"
+        } else if avgDuration / loopTime < 30 * 60{
+            recommendation += "\n\tConsider exercise more than 30mins per day!"
         }
 
         return recommendation
@@ -181,44 +244,61 @@ struct HomeView: View {
 
     private func getSleepRecommendation(sleepHistory: [SleepAssignDate]) -> String {
         var recommendation = ""
-
+        
+        print("\tSleepRecommendation load success")
+        
+        let totalDataCount = sleepHistory.count
         // Based on sleep history
         // 1. If first day register.
         if sleepHistory.count == 1 {
-            recommendation += "Recommendation will start the next day you registered."
+            recommendation += "\n\tRecommendation will start the next day you registered."
             return recommendation
         }
         
-        if let latestSleep = sleepHistory.last {
-            print("\tSleepRecommendation load success")
+        let calendar = Calendar.current
+        if calendar.component(.hour, from: sleepHistory.last?.actualStartTimeLastNight ?? Date()) == 23 && calendar.component(.hour, from: sleepHistory.last?.actualEndTimeLastNight ?? Date()) == 1 {
+            recommendation += "\n\tLog your last night sleep data below"
+            return recommendation
+        }
         
-            let calendar = Calendar.current
-
-            if calendar.component(.hour, from: latestSleep.actualStartTimeLastNight) == 23 &&
-                calendar.component(.hour, from: latestSleep.actualEndTimeLastNight) == 7 &&
-                calendar.component(.hour, from: latestSleep.settedStartTime) == 23 &&
-                calendar.component(.hour, from: latestSleep.settedEndTime) == 7 {
-                recommendation += "\nRecord last night sleep time and set today's goal below."
-                return recommendation
+        // 2. Get last 5 days' sleep data.
+        var avgSleepTime = 0.0
+        
+//        var achievedDays = 0
+        var validDataCount = 0
+        var loopTime = 5
+        
+        // If not enough for 5 days data, use how many it has
+        if totalDataCount < 5 {
+            loopTime = totalDataCount
+        }
+        
+        for i in 0..<loopTime {
+            let tempSleepVlue = sleepHistory[totalDataCount - i - 1]
+            
+            let actualStart = calendar.component(.hour, from: tempSleepVlue.actualStartTimeLastNight)
+            let actualEnd = calendar.component(.hour, from: tempSleepVlue.actualEndTimeLastNight)
+            let setStart = calendar.component(.hour, from: tempSleepVlue.settedStartTime)
+            let setEnd = calendar.component(.hour, from: tempSleepVlue.settedEndTime)
+            if (actualStart == 23 && actualEnd == 1) || (setStart == 23 && setEnd == 1) {
+                continue
             }
             
-            let timeInterval = latestSleep.actualEndTimeLastNight.timeIntervalSince(latestSleep.actualStartTimeLastNight)
-            let hoursOfSleep = timeInterval / 3600 // Convert seconds to hours
-
-            if hoursOfSleep < 7 {
-                recommendation += "\nTry to get at least 7-8 hours of sleep every night."
-            } else if hoursOfSleep > 9 {
-                recommendation += "\nTry to get at least 7-8 hours of sleep every night."
-            }
+            validDataCount += 1
+            let actualTimeInterval = tempSleepVlue.actualEndTimeLastNight.timeIntervalSince(tempSleepVlue.actualStartTimeLastNight)
+            let hoursOfActualSleep: Double = actualTimeInterval / 3600 // Convert seconds to hours
             
-            let calendarForSleepRecommendation = Calendar.current
-            let now = Date()
-
-            if latestSleep.diary.diaryContent == "" && calendarForSleepRecommendation.component(.hour, from: now) >= 18 {
-                recommendation += "\nRemember to write your diary for today below."
-            }
-        } else {
-            print("\tSleepRecommendation load failed")
+//            let setTimeInterval = tempSleepVlue.actualEndTimeLastNight.timeIntervalSince(tempSleepVlue.actualStartTimeLastNight)
+//            let hoursOfSetSleep = setTimeInterval / 3600 // Convert seconds to hours
+            avgSleepTime += hoursOfActualSleep
+        }
+        
+        avgSleepTime /= Double(validDataCount)
+        
+        if avgSleepTime < 7 {
+            recommendation += "\n\tTry to get at least 7-8 hours of sleep."
+        } else if avgSleepTime >= 10 {
+            recommendation += "\n\tTry to get at most 7-8 hours of sleep."
         }
 
         return recommendation
@@ -262,34 +342,32 @@ struct HomeView: View {
         switch hour {
             case 0...6:
                 // User has not logged today's sleep
-                if let latestSleep = sleepHistory.last, Calendar.current.component(.hour, from: latestSleep.actualEndTimeLastNight) == 1 {
-                    recommendation += "Please set your actual sleep time for last night."
+                if Int.random(in: 1...2) == 1 { // 50% chance to recommend exercise
+                    recommendation += getSleepRecommendation(sleepHistory: userSession.sleepValueDict)
                 } else {
                     // User already logged sleep, remind to log breakfast
-                    recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory)
+                    recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory, meals: 0)
                 }
             case 7...10:
                 // Remind user to log breakfast and lunch
-                if let latestSleep = sleepHistory.last, Calendar.current.component(.hour, from: latestSleep.actualEndTimeLastNight) == 1 {
-                    recommendation += "Please set your actual sleep time for last night."
+                let randomNumber = Int.random(in: 1...3)
+                if randomNumber == 1 { // 50% chance to recommend exercise
+                    recommendation += getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
+                } else if randomNumber == 2 {
+                    recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory, meals: 0)
                 } else {
-                    if Int.random(in: 1...2) == 1 { // 50% chance to recommend exercise
-                        recommendation += "\n" + getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
-                    } else {
-                        recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory)
-                    }
+                    recommendation += getSleepRecommendation(sleepHistory: userSession.sleepValueDict)
                 }
             case 11...18:
                 // Remind user to log lunch
                 if Int.random(in: 1...2) == 1 { // 50% chance to recommend exercise
-                    recommendation += "\n" + getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
+                    recommendation += getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
                 } else {
-                    recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory)
+                    recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory, meals: 1)
                 }
             case 19...20:
                 // Remind user to log dinner
-                recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory)
-                recommendation += "\nPlease set your sleep time for tonight."
+                recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory, meals: 2)
             case 21...23:
                 // Remind user to confirm sleep time
                 if let latestSleep = sleepHistory.last, Calendar.current.component(.hour, from: latestSleep.settedStartTime) == 23 && Calendar.current.component(.hour, from: latestSleep.settedEndTime) == 1 {
@@ -298,17 +376,12 @@ struct HomeView: View {
                     if Int.random(in: 1...2) == 1 { // 50% chance to recommend exercise
                         recommendation += getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
                     } else {
-                        recommendation += "\n" + getSleepRecommendation(sleepHistory: sleepHistory)
+                        recommendation += getSleepRecommendation(sleepHistory: sleepHistory)
                     }
                 }
             default:
                 break
         }
-
-//        // Add sleep recommendation if data is sufficient
-//        if sleepHistory.count > 1 {
-//            recommendation += "\n" + getSleepRecommendation(sleepHistory: sleepHistory)
-//        }
         return recommendation
     }
 
@@ -343,25 +416,6 @@ struct HomeView: View {
                         .font(.headline)
                     // Recommendation
                     Text("\(recommendationSystem(BMI:userSession.BMI, BMR: Double(userSession.BMR), dietHistory: userSession.dietValueDict, exerciseHistory: userSession.exerciseValueDict, sleepHistory: userSession.sleepValueDict))")
-                    
-//                    // Recommendation for Diet
-//                    HStack {
-//                        Text("Diet: ")
-//                            .bold()
-//                        Text("\(getDietRecommendation(BMI: userSession.BMI, dietHistory: userSession.dietValueDict, exerciseHistory: userSession.exerciseValueDict))\n")
-//                    }
-//                    // Recommendation for Exercise
-//                    HStack {
-//                        Text("Exercise: ")
-//                            .bold()
-//                        Text("\(getExerciseRecommendation(BMI: userSession.BMI, BMR: Double(userSession.BMR), exerciseHistory: userSession.exerciseValueDict))\n")
-//                    }
-//                    // Recommendation for Sleep
-//                    HStack {
-//                        Text("Sleep: ")
-//                            .bold()
-//                        Text("\(getSleepRecommendation(sleepHistory: userSession.sleepValueDict))\n")
-//                    }
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
