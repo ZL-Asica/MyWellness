@@ -11,7 +11,7 @@ struct RecordExerciseView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userSession: UserSession
     
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     @State var activitiesList: [Activities]
     
     @State private var exerciseType = ""
@@ -52,7 +52,7 @@ struct RecordExerciseView: View {
                             }
                             activitiesList.append(tempActivities)
                             
-                            exerciseValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].activitiesData = activitiesList
+                            exerciseValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)].activitiesData = activitiesList
                             
                             Task {
                                 let exercise = Exercise(userId: userSession.uid, exerciseValueDict: exerciseValueDict)

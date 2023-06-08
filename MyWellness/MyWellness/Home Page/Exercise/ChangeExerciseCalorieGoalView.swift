@@ -12,7 +12,7 @@ struct ChangeExerciseCalorieGoalView: View {
     @ObservedObject var userSession: UserSession
 
     @Binding var calorieGoal: Int
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     
     @State private var userEntered: String = ""
     @State private var calorieNow: Int = 0
@@ -36,7 +36,7 @@ struct ChangeExerciseCalorieGoalView: View {
                 if calorieGoal != calorieNow {
                     calorieNow = calorieGoal
                     var exerciseValueDict = userSession.exerciseValueDict
-                    exerciseValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].kcalGoal = calorieGoal
+                    exerciseValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)].kcalGoal = calorieGoal
                     Task {
                         let exercise = Exercise(userId: userSession.uid, exerciseValueDict: exerciseValueDict)
                         do {

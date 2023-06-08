@@ -46,7 +46,14 @@ struct DBUser: Codable {
         self.weightGoal = weightGoal
         
         // The date user setted their weight goal
-        self.goalSettedDate = self.dateCreated
+        let calendar = Calendar.current
+        let currentDate = self.dateCreated
+
+        // Set the time components to 0:00:00
+        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+        let zeroTimeDate = calendar.date(from: components)
+        
+        self.goalSettedDate = zeroTimeDate ?? Date()
         self.goalExpectDate = goalExpectDate
     }
 }

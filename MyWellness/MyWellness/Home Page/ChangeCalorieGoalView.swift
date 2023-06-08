@@ -13,7 +13,7 @@ struct ChangeCalorieGoalView: View {
 
     @Binding var calorieGoal: Int
     
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     
     @State private var userEntered: String = ""
     @State private var calorieNow: Int = 0
@@ -36,7 +36,7 @@ struct ChangeCalorieGoalView: View {
                 calorieGoal = Int(userEntered) ?? calorieGoal
                 if calorieGoal != calorieNow {
                     var dietValueDict = userSession.dietValueDict
-                    dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].dietValue.nutrientsGoals.kcal = calorieGoal
+                    dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)].dietValue.nutrientsGoals.kcal = calorieGoal
                     Task {
                         let diet = Diet(userId: userSession.uid, dietValueDict: dietValueDict)
                         do {

@@ -12,7 +12,7 @@ struct DiaryInputView: View {
     @ObservedObject var userSession: UserSession
     
     @State var diary: Diary
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     
     @State private var weatherToday: String = ""
     @State private var emotionToday: String = ""
@@ -119,7 +119,7 @@ struct DiaryInputView: View {
                 tempDiary.emotionSelected = emotionToday
                 tempDiary.diaryContent = diaryContentToday
                 
-                sleepValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].diary = tempDiary
+                sleepValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)].diary = tempDiary
                 
                 Task {
                     let sleep = Sleep(userId: userSession.uid, sleepValueDict: sleepValueDict)

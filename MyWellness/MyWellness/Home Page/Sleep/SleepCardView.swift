@@ -10,7 +10,7 @@ import SwiftUI
 struct SleepCardView: View {
     @ObservedObject var userSession: UserSession
     
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     @State private var dateDifference: Int = 0
     
     @State private var showingAdjustSleepTimeLastNight = false
@@ -108,8 +108,8 @@ struct SleepCardView: View {
         .background(Color(.systemGray6))
         .cornerRadius(12)
         .padding(.horizontal)
-        .onAppear {
-            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)
+        .onReceive(date.$date) { newDate in
+            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: newDate)
             let sleepValueCount = userSession.sleepValueDict.count
             if sleepValueCount < dateDifference {
                 dateDifference = sleepValueCount - 1

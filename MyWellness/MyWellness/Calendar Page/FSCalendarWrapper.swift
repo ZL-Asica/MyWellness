@@ -10,7 +10,7 @@ import FSCalendar
 
 struct FSCalendarWrapper: UIViewRepresentable {
     @State var dateCreated: Date
-    @Binding var selectedDate: Date
+    @ObservedObject var selectedDate: SelectedDate
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -62,11 +62,12 @@ struct FSCalendarWrapper: UIViewRepresentable {
         }
         
         func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-            let today = Calendar.current.startOfDay(for: Date())
-            if date >= parent.dateCreated && date <= today {
-                parent.selectedDate = date
+                let today = Calendar.current.startOfDay(for: Date())
+                if date >= parent.dateCreated && date <= today {
+                    parent.selectedDate.date = date
+                    print("\t\t\tselectedDate: \(parent.selectedDate.date)")
+                }
             }
-        }
         
         func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
             let today = Calendar.current.startOfDay(for: Date())
@@ -87,8 +88,8 @@ struct FSCalendarWrapper: UIViewRepresentable {
     }
 }
 
-struct FSCalendarWrapper_Previews: PreviewProvider {
-    static var previews: some View {
-        FSCalendarWrapper(dateCreated: Date(), selectedDate: .constant(Date()))
-    }
-}
+//struct FSCalendarWrapper_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FSCalendarWrapper(dateCreated: Date(), selectedDate: .constant(Date()))
+//    }
+//}

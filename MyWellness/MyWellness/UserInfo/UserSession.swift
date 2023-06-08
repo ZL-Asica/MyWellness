@@ -187,8 +187,9 @@ class UserSession: ObservableObject {
     }
     
     private func updateIfNeeded(BMR: Int) {
-        let dateDifference = calculateDateDifference(date1: dateCreated, date2: Date())
+        let dateDifference = calculateDateDifference(date1: self.dateCreated, date2: Date())
         let dietValueCount = dietValueDict.count
+        print("\t\tDate different: \(self.dateCreated) \(Date()) \(dateDifference); value Count: \(dietValueCount)")
         let dietTimeInterval: TimeInterval = TimeInterval(dietValueCount * 86400) // 86400 is the number of seconds in a day
         if dietValueCount <= dateDifference {
             print("-----UPDATING START-----")
@@ -262,7 +263,9 @@ class UserSession: ObservableObject {
     
     func calculateDateDifference(date1: Date, date2: Date) -> Int {
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.day], from: date1, to: date2)
+        let date1StartOfDay = calendar.startOfDay(for: date1)
+        let date2StartOfDay = calendar.startOfDay(for: date2)
+        let components = calendar.dateComponents([.day], from: date1StartOfDay, to: date2StartOfDay)
         return components.day ?? 0
     }
 }

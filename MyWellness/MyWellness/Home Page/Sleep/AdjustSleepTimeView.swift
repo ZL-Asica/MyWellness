@@ -10,7 +10,7 @@ import SwiftUI
 struct AdjustSleepTimeView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userSession: UserSession
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     
     @State var startTime: Date
     @State var endTime: Date
@@ -60,12 +60,12 @@ struct AdjustSleepTimeView: View {
                     
                     var sleepValueDict = userSession.sleepValueDict
                     
-                    var tempSleep = SleepAssignDate(todayDate: date)
+                    var tempSleep = sleepValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)]
                     
                     tempSleep.actualStartTimeLastNight = startTime
                     tempSleep.actualEndTimeLastNight = endTime
                     
-                    sleepValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)] = tempSleep
+                    sleepValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)] = tempSleep
                     
                     Task {
                         let sleep = Sleep(userId: userSession.uid, sleepValueDict: sleepValueDict)

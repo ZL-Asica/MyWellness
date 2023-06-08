@@ -8,19 +8,24 @@
 import SwiftUI
 import FSCalendar
 
+class SelectedDate: ObservableObject {
+    @Published var date: Date
+    init(_ date: Date) {
+        self.date = date
+    }
+}
+
 struct CalendarView: View {
     @ObservedObject var userSession: UserSession
+    @ObservedObject var selectedDate = SelectedDate(Date())
 
-    @State private var selectedDate = Date()
+//    @State private var selectedDate = Date()
     
     var body: some View {
         ScrollView {
             VStack {
-                FSCalendarWrapper(dateCreated: userSession.dateCreated, selectedDate: $selectedDate )
+                FSCalendarWrapper(dateCreated: userSession.dateCreated, selectedDate: selectedDate )
                     .frame(height: 350)
-                    .onAppear {
-                        print("\tHere is the selectedDate from CalendarView: \(selectedDate)")
-                    }
                 
                 VStack(spacing: 20) {
                     DietCardView(userSession: userSession, date: selectedDate)

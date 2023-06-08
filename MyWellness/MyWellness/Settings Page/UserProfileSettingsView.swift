@@ -84,7 +84,17 @@ struct UserProfileSettingsView: View {
                             }
                             if weightGoal != "" {
                                 tempUser.weightGoal = Double(weightGoal) ?? tempUser.weightGoal
-                                tempUser.goalSettedDate = Date()
+
+                                let calendar = Calendar.current
+                                let currentDate = Date()
+
+                                // Set the time components to 0:00:00
+                                let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+                                let zeroTimeDate = calendar.date(from: components)
+
+                                // Assign the zeroTimeDate to the goalSettedDate property
+                                tempUser.goalSettedDate = zeroTimeDate ?? Date()
+
                                 tempUser.goalExpectDate = goalExpectDate
                             }
                             do {

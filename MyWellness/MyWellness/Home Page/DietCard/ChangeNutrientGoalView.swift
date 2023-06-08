@@ -11,7 +11,7 @@ struct ChangeNutrientGoalView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userSession: UserSession
     
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     
     @State var totalCalories: Int
     @Binding var currentCarbGoal: Int
@@ -89,7 +89,7 @@ struct ChangeNutrientGoalView: View {
                         
                         var dietValueDict = userSession.dietValueDict
                         let tempMeal = Meals(kcal: totalCalories, carbs: currentCarbGoal, protein: currentProteinGoal, fat: currentFatGoal)
-                        dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].dietValue.nutrientsGoals = tempMeal
+                        dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)].dietValue.nutrientsGoals = tempMeal
                         Task {
                             let diet = Diet(userId: userSession.uid, dietValueDict: dietValueDict)
                             do {

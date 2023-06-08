@@ -11,7 +11,7 @@ struct RecordDietView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userSession: UserSession
     
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     
     @Binding var consumedCalories: Int
     @Binding var carbs: (consumed: Int, total: Int)
@@ -64,19 +64,19 @@ struct RecordDietView: View {
                         breakfast.carbs = Int(carbsStr) ?? breakfast.carbs
                         breakfast.protein = Int(proteinStr) ?? breakfast.protein
                         breakfast.fat = Int(fatStr) ?? breakfast.fat
-                        dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].dietValue.meals[0] = breakfast
+                        dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)].dietValue.meals[0] = breakfast
                     } else if mealType == "lunch" {
                         lunch.kcal = Int(caloriesStr) ?? lunch.kcal
                         lunch.carbs = Int(carbsStr) ?? lunch.carbs
                         lunch.protein = Int(proteinStr) ?? lunch.protein
                         lunch.fat = Int(fatStr) ?? lunch.fat
-                        dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].dietValue.meals[1] = lunch
+                        dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)].dietValue.meals[1] = lunch
                     } else {
                         dinner.kcal = Int(caloriesStr) ?? dinner.kcal
                         dinner.carbs = Int(carbsStr) ?? dinner.carbs
                         dinner.protein = Int(proteinStr) ?? dinner.protein
                         dinner.fat = Int(fatStr) ?? dinner.fat
-                        dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)].dietValue.meals[2] = dinner
+                        dietValueDict[userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)].dietValue.meals[2] = dinner
                     }
                     consumedCalories = breakfast.kcal + lunch.kcal + dinner.kcal
                     carbs.consumed = breakfast.carbs + lunch.carbs + dinner.carbs

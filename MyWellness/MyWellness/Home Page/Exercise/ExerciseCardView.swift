@@ -11,7 +11,7 @@ import SwiftUI
 struct ExerciseCardView: View {
     @ObservedObject var userSession: UserSession
     
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     @State private var dateDifference: Int = 0
     
 //    @State var exerciseToday: ExerciseAssignDate = ExerciseAssignDate(kcalGoal: 1000)
@@ -117,9 +117,9 @@ struct ExerciseCardView: View {
         .background(Color(.systemGray6))
         .cornerRadius(12)
         .padding(.horizontal)
-        .onAppear {
-            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)
-            let exerciseValueCount = userSession.sleepValueDict.count
+        .onReceive(date.$date) { newDate in
+            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: newDate)
+            let exerciseValueCount = userSession.exerciseValueDict.count
             if exerciseValueCount < dateDifference {
                 dateDifference = exerciseValueCount - 1
             }
@@ -154,6 +154,11 @@ struct ExerciseCardView: View {
 //    }
     
     func updateActivitiesData(activitiesData: [Activities]) {
+        // Reset all data and recaculate
+        activitiesCalories = 0
+        totalActivitiesTime = 0
+        totalActivitiesMileage = 0
+        
         for i in activitiesData {
             activitiesCalories += i.calorie
             totalActivitiesTime += i.duration

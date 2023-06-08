@@ -19,18 +19,23 @@ struct ExerciseLogView: View {
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
             } else {
-                List(activitiesList) { activity in
-                    VStack(alignment: .leading) {
-                        Text(activity.exerciseType)
-                        Text("Duration: \(Int(activity.duration / 60)) min")
-                        Text("Calories: \(activity.calorie) kcal")
-                        if activity.totalMiles > 0 {
-                            Text("Miles: \(String(format: "%.2f", activity.totalMiles))")
+                VStack {
+                    Text("Exercise Logs")
+                        .font(.title)
+                        .padding(10)
+                    List(activitiesList) { activity in
+                        VStack(alignment: .leading) {
+                            Text(activity.exerciseType)
+                            Text("Duration: \(Int(activity.duration / 60)) min")
+                            Text("Calories: \(activity.calorie) kcal")
+                            if activity.totalMiles > 0 {
+                                Text("Miles: \(String(format: "%.2f", activity.totalMiles))")
+                            }
                         }
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        // Show edit exercise log view
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            // Show edit exercise log view
+                        }
                     }
                 }
             }

@@ -10,7 +10,7 @@ import SwiftUI
 struct DietCardView: View {
     @ObservedObject var userSession: UserSession
     
-    @State var date: Date
+    @ObservedObject var date: SelectedDate
     @State private var dateDifference: Int = 0
     
     @State private var totalCalories = 0
@@ -57,7 +57,7 @@ struct DietCardView: View {
                 showingChangeNutrientGoal.toggle()
             }
             .sheet(isPresented: $showingChangeNutrientGoal) {
-                ChangeNutrientGoalView(userSession: userSession, date: Date(), totalCalories: totalCalories, currentCarbGoal: $carbs.total, currentProteinGoal: $protein.total, currentFatGoal: $fat.total)
+                ChangeNutrientGoalView(userSession: userSession, date: date, totalCalories: totalCalories, currentCarbGoal: $carbs.total, currentProteinGoal: $protein.total, currentFatGoal: $fat.total)
             }
             
             HStack {
@@ -90,8 +90,8 @@ struct DietCardView: View {
         .background(Color(.systemGray6))
         .cornerRadius(12)
         .padding(.horizontal)
-        .onAppear {
-            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date)
+        .onReceive(date.$date) { _ in
+            dateDifference = userSession.calculateDateDifference(date1: userSession.dateCreated, date2: date.date)
             let dietValueCount = userSession.sleepValueDict.count
             if dietValueCount < dateDifference {
                 dateDifference = dietValueCount - 1

@@ -376,7 +376,12 @@ struct HomeView: View {
                     if Int.random(in: 1...2) == 1 { // 50% chance to recommend exercise
                         recommendation += getExerciseRecommendation(BMI: BMI, BMR: BMR, exerciseHistory: exerciseHistory)
                     } else {
-                        recommendation += getSleepRecommendation(sleepHistory: sleepHistory)
+                        let tempSleepRecon = getSleepRecommendation(sleepHistory: sleepHistory)
+                        if tempSleepRecon == "" {
+                            recommendation += getDietRecommendation(BMI: BMI, dietHistory: dietHistory, exerciseHistory: exerciseHistory, meals: 2)
+                        } else {
+                            recommendation += tempSleepRecon
+                        }
                     }
                 }
             default:
@@ -424,9 +429,9 @@ struct HomeView: View {
                 .padding()
                 
                 VStack {
-                    DietCardView(userSession: userSession, date: Date())
-                    ExerciseCardView(userSession: userSession, date: Date())
-                    SleepCardView(userSession: userSession, date: Date())
+                    DietCardView(userSession: userSession, date: SelectedDate(Date()))
+                    ExerciseCardView(userSession: userSession, date: SelectedDate(Date()))
+                    SleepCardView(userSession: userSession, date: SelectedDate(Date()))
                 }
                 .padding(.bottom)
                 .onAppear {
